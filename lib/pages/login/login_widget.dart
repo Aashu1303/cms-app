@@ -1,0 +1,727 @@
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'login_model.dart';
+export 'login_model.dart';
+
+class LoginWidget extends StatefulWidget {
+  const LoginWidget({super.key});
+
+  @override
+  State<LoginWidget> createState() => _LoginWidgetState();
+}
+
+class _LoginWidgetState extends State<LoginWidget> {
+  late LoginModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => LoginModel());
+
+    _model.emailAddressFieldTextController ??= TextEditingController();
+    _model.emailAddressFieldFocusNode ??= FocusNode();
+
+    _model.passwordFieldTextController ??= TextEditingController();
+    _model.passwordFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: MediaQuery.sizeOf(context).height * 1.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                      ),
+                      child: Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: Container(
+                          width: 360.0,
+                          height: MediaQuery.sizeOf(context).height * 1.0,
+                          decoration: const BoxDecoration(),
+                          child: Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 24.0),
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    elevation: 0.0,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(12.0),
+                                        bottomRight: Radius.circular(12.0),
+                                        topLeft: Radius.circular(12.0),
+                                        topRight: Radius.circular(12.0),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      width: 48.0,
+                                      height: 48.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: Image.asset(
+                                            'assets/images/DAAsset_1.png',
+                                          ).image,
+                                        ),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            blurRadius: 8.0,
+                                            color: Color(0x1917171C),
+                                            offset: Offset(
+                                              0.0,
+                                              4.0,
+                                            ),
+                                            spreadRadius: 0.0,
+                                          )
+                                        ],
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(12.0),
+                                          bottomRight: Radius.circular(12.0),
+                                          topLeft: Radius.circular(12.0),
+                                          topRight: Radius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SelectionArea(
+                                    child: Text(
+                                  'Campus',
+                                  style: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .override(
+                                        fontFamily: 'Outfit',
+                                        fontSize: 30.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        lineHeight: 1.2,
+                                      ),
+                                )),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 12.0, 0.0, 0.0),
+                                  child: SelectionArea(
+                                      child: Text(
+                                    'Welcome back! Please enter your details.',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          letterSpacing: 0.0,
+                                          lineHeight: 1.5,
+                                        ),
+                                  )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 32.0, 0.0, 0.0),
+                                  child: Form(
+                                    key: _model.formKey,
+                                    autovalidateMode: AutovalidateMode.disabled,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                SelectionArea(
+                                                    child: Text(
+                                                  'Email',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                )),
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 6.0, 0.0, 0.0),
+                                              child: TextFormField(
+                                                controller: _model
+                                                    .emailAddressFieldTextController,
+                                                focusNode: _model
+                                                    .emailAddressFieldFocusNode,
+                                                autofocus: false,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  labelStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        lineHeight: 1.5,
+                                                      ),
+                                                  hintText: 'Enter your email',
+                                                  hintStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        lineHeight: 1.5,
+                                                      ),
+                                                  enabledBorder:
+                                                      const OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFD0D5DD),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(8.0),
+                                                      bottomRight:
+                                                          Radius.circular(8.0),
+                                                      topLeft:
+                                                          Radius.circular(8.0),
+                                                      topRight:
+                                                          Radius.circular(8.0),
+                                                    ),
+                                                  ),
+                                                  focusedBorder:
+                                                      const OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(8.0),
+                                                      bottomRight:
+                                                          Radius.circular(8.0),
+                                                      topLeft:
+                                                          Radius.circular(8.0),
+                                                      topRight:
+                                                          Radius.circular(8.0),
+                                                    ),
+                                                  ),
+                                                  errorBorder:
+                                                      const OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFFDA29B),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(8.0),
+                                                      bottomRight:
+                                                          Radius.circular(8.0),
+                                                      topLeft:
+                                                          Radius.circular(8.0),
+                                                      topRight:
+                                                          Radius.circular(8.0),
+                                                    ),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      const OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFFDA29B),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(8.0),
+                                                      bottomRight:
+                                                          Radius.circular(8.0),
+                                                      topLeft:
+                                                          Radius.circular(8.0),
+                                                      topRight:
+                                                          Radius.circular(8.0),
+                                                    ),
+                                                  ),
+                                                  contentPadding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(14.0, 10.0,
+                                                              14.0, 10.0),
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          lineHeight: 1.5,
+                                                        ),
+                                                keyboardType:
+                                                    TextInputType.emailAddress,
+                                                validator: _model
+                                                    .emailAddressFieldTextControllerValidator
+                                                    .asValidator(context),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 20.0, 0.0, 0.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  SelectionArea(
+                                                      child: Text(
+                                                    'Password',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  )),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 6.0, 0.0, 0.0),
+                                                child: TextFormField(
+                                                  controller: _model
+                                                      .passwordFieldTextController,
+                                                  focusNode: _model
+                                                      .passwordFieldFocusNode,
+                                                  autofocus: false,
+                                                  obscureText: !_model
+                                                      .passwordFieldVisibility,
+                                                  decoration: InputDecoration(
+                                                    labelStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          lineHeight: 1.5,
+                                                        ),
+                                                    hintText: '••••••••',
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          lineHeight: 1.5,
+                                                        ),
+                                                    enabledBorder:
+                                                        const OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFD0D5DD),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                8.0),
+                                                      ),
+                                                    ),
+                                                    focusedBorder:
+                                                        const OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0x00000000),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                8.0),
+                                                      ),
+                                                    ),
+                                                    errorBorder:
+                                                        const OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFFDA29B),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                8.0),
+                                                      ),
+                                                    ),
+                                                    focusedErrorBorder:
+                                                        const OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFFDA29B),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                8.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                8.0),
+                                                      ),
+                                                    ),
+                                                    contentPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                14.0,
+                                                                10.0,
+                                                                14.0,
+                                                                10.0),
+                                                    suffixIcon: InkWell(
+                                                      onTap: () => setState(
+                                                        () => _model
+                                                                .passwordFieldVisibility =
+                                                            !_model
+                                                                .passwordFieldVisibility,
+                                                      ),
+                                                      focusNode: FocusNode(
+                                                          skipTraversal: true),
+                                                      child: Icon(
+                                                        _model.passwordFieldVisibility
+                                                            ? Icons
+                                                                .visibility_outlined
+                                                            : Icons
+                                                                .visibility_off_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 16.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        lineHeight: 1.5,
+                                                      ),
+                                                  validator: _model
+                                                      .passwordFieldTextControllerValidator
+                                                      .asValidator(context),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 24.0, 0.0, 0.0),
+                                  child: SelectionArea(
+                                      child: Text(
+                                    'Forget password?',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 24.0, 0.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      _model.authentication =
+                                          await LoginCall.call(
+                                        email: _model
+                                            .emailAddressFieldTextController
+                                            .text,
+                                        password: _model
+                                            .passwordFieldTextController.text,
+                                        authToken: FFAppState().authToken,
+                                      );
+                                      if ((_model.authentication?.statusCode ??
+                                              200) ==
+                                          201) {
+                                        setState(() {
+                                          FFAppState().authToken = (_model
+                                                  .authentication
+                                                  ?.getHeader('Bearer') ??
+                                              '');
+                                        });
+
+                                        context.pushNamed('LaundryList');
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title:
+                                                  const Text('Invalid Credentials'),
+                                              content: const Text(
+                                                  'Invalid email / password.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: const Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+
+                                      setState(() {});
+                                    },
+                                    text: 'Log in',
+                                    options: FFButtonOptions(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(8.0),
+                                        bottomRight: Radius.circular(8.0),
+                                        topLeft: Radius.circular(8.0),
+                                        topRight: Radius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 24.0, 0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SelectionArea(
+                                          child: Text(
+                                        'Don\'t have an account? ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      )),
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'signup',
+                                            extra: <String, dynamic>{
+                                              kTransitionInfoKey:
+                                                  const TransitionInfo(
+                                                hasTransition: true,
+                                                transitionType:
+                                                    PageTransitionType
+                                                        .bottomToTop,
+                                              ),
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          'Sign up',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    Expanded(
+                      child: Container(
+                        width: 100.0,
+                        height: MediaQuery.sizeOf(context).height * 1.0,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFEFEFEF),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: Image.network(
+                              'https://images.unsplash.com/photo-1508025522233-ed33103769f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2129&q=80',
+                            ).image,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
