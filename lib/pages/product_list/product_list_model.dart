@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'signup_widget.dart' show SignupWidget;
+import 'product_list_widget.dart' show ProductListWidget;
 import 'package:flutter/material.dart';
 
-class SignupModel extends FlutterFlowModel<SignupWidget> {
+class ProductListModel extends FlutterFlowModel<ProductListWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -14,36 +16,27 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {
-    prefs = await SharedPreferences.getInstance();
-    _safeInit(() {
-      _authToken = prefs.getString('ff_authToken') ?? _authToken;
-    });
-  }
+  Future initializePersistedState() async {}
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
 
-  late SharedPreferences prefs;
-
   String _authToken = '';
   String get authToken => _authToken;
   set authToken(String value) {
     _authToken = value;
-    prefs.setString('ff_authToken', value);
   }
-}
 
-void _safeInit(Function() initializeField) {
-  try {
-    initializeField();
-  } catch (_) {}
-}
+  ProductStruct _Products = ProductStruct.fromSerializableMap(
+      jsonDecode('{\"Type\":\"[]\",\"WashType\":\"[]\",\"Quantity\":\"[]\"}'));
+  ProductStruct get Products => _Products;
+  set Products(ProductStruct value) {
+    _Products = value;
+  }
 
-Future _safeInitAsync(Function() initializeField) async {
-  try {
-    await initializeField();
-  } catch (_) {}
+  void updateProductsStruct(Function(ProductStruct) updateFn) {
+    updateFn(_Products);
+  }
 }
