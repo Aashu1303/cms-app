@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import '/backend/schema/util/firestore_util.dart';
 
 import 'index.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class UsersRecord extends FirestoreRecord {
   UsersRecord._(
@@ -29,11 +30,6 @@ class UsersRecord extends FirestoreRecord {
   String get photoUrl => _photoUrl ?? '';
   bool hasPhotoUrl() => _photoUrl != null;
 
-  // "uid" field.
-  String? _uid;
-  String get uid => _uid ?? '';
-  bool hasUid() => _uid != null;
-
   // "created_time" field.
   DateTime? _createdTime;
   DateTime? get createdTime => _createdTime;
@@ -54,15 +50,26 @@ class UsersRecord extends FirestoreRecord {
   String get roomNo => _roomNo ?? '';
   bool hasRoomNo() => _roomNo != null;
 
+  // "uid" field.
+  String? _uid;
+  String get uid => _uid ?? '';
+  bool hasUid() => _uid != null;
+
+  // "totalPrice" field.
+  int? _totalPrice;
+  int get totalPrice => _totalPrice ?? 0;
+  bool hasTotalPrice() => _totalPrice != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
-    _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _role = snapshotData['role'] as String?;
     _roomNo = snapshotData['roomNo'] as String?;
+    _uid = snapshotData['uid'] as String?;
+    _totalPrice = castToType<int>(snapshotData['totalPrice']);
   }
 
   static CollectionReference get collection =>
@@ -102,22 +109,24 @@ Map<String, dynamic> createUsersRecordData({
   String? email,
   String? displayName,
   String? photoUrl,
-  String? uid,
   DateTime? createdTime,
   String? phoneNumber,
   String? role,
   String? roomNo,
+  String? uid,
+  int? totalPrice,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'email': email,
       'display_name': displayName,
       'photo_url': photoUrl,
-      'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'role': role,
       'roomNo': roomNo,
+      'uid': uid,
+      'totalPrice': totalPrice,
     }.withoutNulls,
   );
 
@@ -132,11 +141,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
-        e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.role == e2?.role &&
-        e1?.roomNo == e2?.roomNo;
+        e1?.roomNo == e2?.roomNo &&
+        e1?.uid == e2?.uid &&
+        e1?.totalPrice == e2?.totalPrice;
   }
 
   @override
@@ -144,11 +154,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.email,
         e?.displayName,
         e?.photoUrl,
-        e?.uid,
         e?.createdTime,
         e?.phoneNumber,
         e?.role,
-        e?.roomNo
+        e?.roomNo,
+        e?.uid,
+        e?.totalPrice
       ]);
 
   @override

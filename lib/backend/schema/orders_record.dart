@@ -30,11 +30,6 @@ class OrdersRecord extends FirestoreRecord {
   String get status => _status ?? '';
   bool hasStatus() => _status != null;
 
-  // "totalAmount" field.
-  int? _totalAmount;
-  int get totalAmount => _totalAmount ?? 0;
-  bool hasTotalAmount() => _totalAmount != null;
-
   // "createdAt" field.
   DateTime? _createdAt;
   DateTime? get createdAt => _createdAt;
@@ -45,13 +40,33 @@ class OrdersRecord extends FirestoreRecord {
   DateTime? get updatedAt => _updatedAt;
   bool hasUpdatedAt() => _updatedAt != null;
 
+  // "items" field.
+  List<ItemStruct>? _items;
+  List<ItemStruct> get items => _items ?? const [];
+  bool hasItems() => _items != null;
+
+  // "totalAmount" field.
+  double? _totalAmount;
+  double get totalAmount => _totalAmount ?? 0.0;
+  bool hasTotalAmount() => _totalAmount != null;
+
+  // "service" field.
+  String? _service;
+  String get service => _service ?? '';
+  bool hasService() => _service != null;
+
   void _initializeFields() {
     _orderID = snapshotData['orderID'] as String?;
     _uid = snapshotData['uid'] as DocumentReference?;
     _status = snapshotData['status'] as String?;
-    _totalAmount = castToType<int>(snapshotData['totalAmount']);
     _createdAt = snapshotData['createdAt'] as DateTime?;
     _updatedAt = snapshotData['updatedAt'] as DateTime?;
+    _items = getStructList(
+      snapshotData['items'],
+      ItemStruct.fromMap,
+    );
+    _totalAmount = castToType<double>(snapshotData['totalAmount']);
+    _service = snapshotData['service'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -91,18 +106,20 @@ Map<String, dynamic> createOrdersRecordData({
   String? orderID,
   DocumentReference? uid,
   String? status,
-  int? totalAmount,
   DateTime? createdAt,
   DateTime? updatedAt,
+  double? totalAmount,
+  String? service,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'orderID': orderID,
       'uid': uid,
       'status': status,
-      'totalAmount': totalAmount,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
+      'totalAmount': totalAmount,
+      'service': service,
     }.withoutNulls,
   );
 
@@ -114,12 +131,15 @@ class OrdersRecordDocumentEquality implements Equality<OrdersRecord> {
 
   @override
   bool equals(OrdersRecord? e1, OrdersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.orderID == e2?.orderID &&
         e1?.uid == e2?.uid &&
         e1?.status == e2?.status &&
-        e1?.totalAmount == e2?.totalAmount &&
         e1?.createdAt == e2?.createdAt &&
-        e1?.updatedAt == e2?.updatedAt;
+        e1?.updatedAt == e2?.updatedAt &&
+        listEquality.equals(e1?.items, e2?.items) &&
+        e1?.totalAmount == e2?.totalAmount &&
+        e1?.service == e2?.service;
   }
 
   @override
@@ -127,9 +147,11 @@ class OrdersRecordDocumentEquality implements Equality<OrdersRecord> {
         e?.orderID,
         e?.uid,
         e?.status,
-        e?.totalAmount,
         e?.createdAt,
-        e?.updatedAt
+        e?.updatedAt,
+        e?.items,
+        e?.totalAmount,
+        e?.service
       ]);
 
   @override

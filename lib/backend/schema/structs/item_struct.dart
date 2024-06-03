@@ -13,10 +13,12 @@ class ItemStruct extends FFFirebaseStruct {
     String? type,
     String? washType,
     int? quantity,
+    int? price,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _type = type,
         _washType = washType,
         _quantity = quantity,
+        _price = price,
         super(firestoreUtilData);
 
   // "Type" field.
@@ -38,10 +40,18 @@ class ItemStruct extends FFFirebaseStruct {
   void incrementQuantity(int amount) => _quantity = quantity + amount;
   bool hasQuantity() => _quantity != null;
 
+  // "Price" field.
+  int? _price;
+  int get price => _price ?? 0;
+  set price(int? val) => _price = val;
+  void incrementPrice(int amount) => _price = price + amount;
+  bool hasPrice() => _price != null;
+
   static ItemStruct fromMap(Map<String, dynamic> data) => ItemStruct(
         type: data['Type'] as String?,
         washType: data['WashType'] as String?,
         quantity: castToType<int>(data['Quantity']),
+        price: castToType<int>(data['Price']),
       );
 
   static ItemStruct? maybeFromMap(dynamic data) =>
@@ -51,6 +61,7 @@ class ItemStruct extends FFFirebaseStruct {
         'Type': _type,
         'WashType': _washType,
         'Quantity': _quantity,
+        'Price': _price,
       }.withoutNulls;
 
   @override
@@ -65,6 +76,10 @@ class ItemStruct extends FFFirebaseStruct {
         ),
         'Quantity': serializeParam(
           _quantity,
+          ParamType.int,
+        ),
+        'Price': serializeParam(
+          _price,
           ParamType.int,
         ),
       }.withoutNulls;
@@ -86,6 +101,11 @@ class ItemStruct extends FFFirebaseStruct {
           ParamType.int,
           false,
         ),
+        price: deserializeParam(
+          data['Price'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -96,17 +116,20 @@ class ItemStruct extends FFFirebaseStruct {
     return other is ItemStruct &&
         type == other.type &&
         washType == other.washType &&
-        quantity == other.quantity;
+        quantity == other.quantity &&
+        price == other.price;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([type, washType, quantity]);
+  int get hashCode =>
+      const ListEquality().hash([type, washType, quantity, price]);
 }
 
 ItemStruct createItemStruct({
   String? type,
   String? washType,
   int? quantity,
+  int? price,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -116,6 +139,7 @@ ItemStruct createItemStruct({
       type: type,
       washType: washType,
       quantity: quantity,
+      price: price,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

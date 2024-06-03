@@ -93,14 +93,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/addToBucket',
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'AddToBucket')
-              : AddToBucketWidget(
-                  user: params.getParam(
-                    'user',
-                    ParamType.DocumentReference,
-                    isList: false,
-                    collectionNamePath: ['users'],
-                  ),
-                ),
+              : const AddToBucketWidget(),
         ),
         FFRoute(
           name: 'signUp',
@@ -127,21 +120,32 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/bucket',
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'Bucket')
-              : BucketWidget(
-                  user: params.getParam(
-                    'user',
-                    ParamType.DocumentReference,
-                    isList: false,
-                    collectionNamePath: ['users'],
-                  ),
-                ),
+              : const BucketWidget(),
         ),
         FFRoute(
           name: 'profile',
           path: '/profile',
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'profile')
-              : const ProfileWidget(),
+              : const NavBarPage(
+                  initialPage: 'profile',
+                  page: ProfileWidget(),
+                ),
+        ),
+        FFRoute(
+          name: 'orderHistory',
+          path: '/orderHistory',
+          builder: (context, params) => const OrderHistoryWidget(),
+        ),
+        FFRoute(
+          name: 'orders',
+          path: '/orders',
+          builder: (context, params) => const OrdersWidget(),
+        ),
+        FFRoute(
+          name: 'userItems',
+          path: '/userOrders',
+          builder: (context, params) => const UserItemsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

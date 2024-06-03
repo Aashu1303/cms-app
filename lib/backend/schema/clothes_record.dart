@@ -30,12 +30,24 @@ class ClothesRecord extends FirestoreRecord {
   int get quantity => _quantity ?? 0;
   bool hasQuantity() => _quantity != null;
 
+  // "uid" field.
+  String? _uid;
+  String get uid => _uid ?? '';
+  bool hasUid() => _uid != null;
+
+  // "price" field.
+  int? _price;
+  int get price => _price ?? 0;
+  bool hasPrice() => _price != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _type = snapshotData['type'] as String?;
     _washType = snapshotData['washType'] as String?;
     _quantity = castToType<int>(snapshotData['quantity']);
+    _uid = snapshotData['uid'] as String?;
+    _price = castToType<int>(snapshotData['price']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -81,12 +93,16 @@ Map<String, dynamic> createClothesRecordData({
   String? type,
   String? washType,
   int? quantity,
+  String? uid,
+  int? price,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'type': type,
       'washType': washType,
       'quantity': quantity,
+      'uid': uid,
+      'price': price,
     }.withoutNulls,
   );
 
@@ -100,12 +116,14 @@ class ClothesRecordDocumentEquality implements Equality<ClothesRecord> {
   bool equals(ClothesRecord? e1, ClothesRecord? e2) {
     return e1?.type == e2?.type &&
         e1?.washType == e2?.washType &&
-        e1?.quantity == e2?.quantity;
+        e1?.quantity == e2?.quantity &&
+        e1?.uid == e2?.uid &&
+        e1?.price == e2?.price;
   }
 
   @override
-  int hash(ClothesRecord? e) =>
-      const ListEquality().hash([e?.type, e?.washType, e?.quantity]);
+  int hash(ClothesRecord? e) => const ListEquality()
+      .hash([e?.type, e?.washType, e?.quantity, e?.uid, e?.price]);
 
   @override
   bool isValidKey(Object? o) => o is ClothesRecord;

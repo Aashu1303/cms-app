@@ -17,7 +17,7 @@ class AddToBucketModel extends FlutterFlowModel<AddToBucketWidget> {
   // State field(s) for CountController widget.
   int? countControllerValue;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  ClothesRecord? apiResult2qt;
+  ClothesRecord? addClothes;
 
   @override
   void initState(BuildContext context) {}

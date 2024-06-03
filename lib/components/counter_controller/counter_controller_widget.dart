@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,9 +11,17 @@ class CounterControllerWidget extends StatefulWidget {
   const CounterControllerWidget({
     super.key,
     required this.quantity,
+    required this.type,
+    required this.washType,
+    required this.price,
+    required this.clothID,
   });
 
   final int? quantity;
+  final String? type;
+  final String? washType;
+  final int? price;
+  final DocumentReference? clothID;
 
   @override
   State<CounterControllerWidget> createState() =>
@@ -84,9 +93,49 @@ class _CounterControllerWidgetState extends State<CounterControllerWidget> {
                     ),
               ),
               count: _model.countControllerValue ??= widget.quantity!,
-              updateCount: (count) =>
-                  setState(() => _model.countControllerValue = count),
+              updateCount: (count) async {
+                setState(() => _model.countControllerValue = count);
+                if (_model.countControllerValue != 0) {
+                  await widget.clothID!.update(createClothesRecordData(
+                    quantity: _model.countControllerValue,
+                    price: (_model.countControllerValue!) * (widget.price!),
+                  ));
+                } else {
+                  var confirmDialogResponse = await showDialog<bool>(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: const Text('Remove Item'),
+                            content: const Text('Do you want to remove this item ?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext, false),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext, true),
+                                child: const Text('Confirm'),
+                              ),
+                            ],
+                          );
+                        },
+                      ) ??
+                      false;
+                  if (confirmDialogResponse) {
+                    await widget.clothID!.delete();
+                  } else {
+                    await widget.clothID!.update(createClothesRecordData(
+                      quantity: 1,
+                    ));
+
+                    context.pushNamed('Bucket');
+                  }
+                }
+              },
               stepSize: 1,
+              minimum: 0,
               contentPadding: const EdgeInsets.all(6.0),
             ),
           ),

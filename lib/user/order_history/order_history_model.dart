@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'bucket_widget.dart' show BucketWidget;
+import 'order_history_widget.dart' show OrderHistoryWidget;
 import 'package:flutter/material.dart';
 
-class BucketModel extends FlutterFlowModel<BucketWidget> {
+class OrderHistoryModel extends FlutterFlowModel<OrderHistoryWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

@@ -3,7 +3,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -649,13 +648,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                           .update(createUsersRecordData(
                                             displayName: _model
                                                 .usernameTextController.text,
-                                            uid: random_data.randomString(
-                                              10,
-                                              10,
-                                              true,
-                                              true,
-                                              true,
-                                            ),
                                             createdTime: getCurrentTimestamp,
                                             phoneNumber: _model
                                                 .contactTextController.text,
