@@ -17,8 +17,6 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
   TextEditingController? passwordFieldTextController;
   late bool passwordFieldVisibility;
   String? Function(BuildContext, String?)? passwordFieldTextControllerValidator;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue;
 
   @override
   void initState(BuildContext context) {

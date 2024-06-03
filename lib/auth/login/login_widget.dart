@@ -575,124 +575,89 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        15.0, 20.0, 15.0, 0.0),
-                                    child: Theme(
-                                      data: ThemeData(
-                                        checkboxTheme: const CheckboxThemeData(
-                                          visualDensity: VisualDensity.compact,
-                                          materialTapTargetSize:
-                                              MaterialTapTargetSize.shrinkWrap,
-                                        ),
-                                        unselectedWidgetColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                      ),
-                                      child: CheckboxListTile(
-                                        value: _model.checkboxListTileValue ??=
-                                            false,
-                                        onChanged: (newValue) async {
-                                          setState(() =>
-                                              _model.checkboxListTileValue =
-                                                  newValue!);
-                                        },
-                                        title: Text(
-                                          'Are you an admin?',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodySmall
-                                              .override(
-                                                fontFamily: 'Noto Sans JP',
-                                                letterSpacing: 0.0,
+                                        80.0, 40.0, 80.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              GoRouter.of(context)
+                                                  .prepareAuthEvent();
+
+                                              final user = await authManager
+                                                  .signInWithEmail(
+                                                context,
+                                                _model
+                                                    .emailAddressFieldTextController
+                                                    .text,
+                                                _model
+                                                    .passwordFieldTextController
+                                                    .text,
+                                              );
+                                              if (user == null) {
+                                                return;
+                                              }
+
+                                              FFAppState().uid =
+                                                  currentUserReference;
+                                              setState(() {});
+                                              if (valueOrDefault(
+                                                      currentUserDocument?.role,
+                                                      '') ==
+                                                  'user') {
+                                                context.goNamedAuth(
+                                                    'AddToBucket',
+                                                    context.mounted);
+                                              } else {
+                                                context.goNamedAuth(
+                                                    'orders-Admin',
+                                                    context.mounted);
+                                              }
+                                            },
+                                            text: 'Log in',
+                                            options: FFButtonOptions(
+                                              width: 100.0,
+                                              height: 50.0,
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color: Colors.white,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              borderSide: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1.0,
                                               ),
-                                        ),
-                                        tileColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        activeColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                        checkColor:
-                                            FlutterFlowTheme.of(context).info,
-                                        dense: false,
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 24.0, 0.0, 0.0),
-                                    child: SelectionArea(
-                                        child: Text(
-                                      'Forget password?',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 24.0, 0.0, 0.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        GoRouter.of(context).prepareAuthEvent();
-
-                                        final user =
-                                            await authManager.signInWithEmail(
-                                          context,
-                                          _model.emailAddressFieldTextController
-                                              .text,
-                                          _model
-                                              .passwordFieldTextController.text,
-                                        );
-                                        if (user == null) {
-                                          return;
-                                        }
-
-                                        FFAppState().uid = currentUserReference;
-                                        setState(() {});
-
-                                        context.goNamedAuth(
-                                            'AddToBucket', context.mounted);
-                                      },
-                                      text: 'Log in',
-                                      options: FFButtonOptions(
-                                        width: 100.0,
-                                        height: 40.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Plus Jakarta Sans',
-                                              color: Colors.white,
-                                              letterSpacing: 0.0,
+                                              borderRadius: const BorderRadius.only(
+                                                bottomLeft:
+                                                    Radius.circular(8.0),
+                                                bottomRight:
+                                                    Radius.circular(8.0),
+                                                topLeft: Radius.circular(8.0),
+                                                topRight: Radius.circular(8.0),
+                                              ),
                                             ),
-                                        borderSide: const BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
+                                          ),
                                         ),
-                                        borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(8.0),
-                                          bottomRight: Radius.circular(8.0),
-                                          topLeft: Radius.circular(8.0),
-                                          topRight: Radius.circular(8.0),
-                                        ),
-                                      ),
+                                      ],
                                     ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 24.0, 0.0, 0.0),
+                                        0.0, 50.0, 0.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:

@@ -30,8 +30,10 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
   TextEditingController? roomNumberTextController;
   String? Function(BuildContext, String?)? roomNumberTextControllerValidator;
   // State field(s) for contact widget.
+  final contactKey = GlobalKey();
   FocusNode? contactFocusNode;
   TextEditingController? contactTextController;
+  String? contactSelectedOption;
   String? Function(BuildContext, String?)? contactTextControllerValidator;
 
   @override
@@ -59,6 +61,5 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
     roomNumberTextController?.dispose();
 
     contactFocusNode?.dispose();
-    contactTextController?.dispose();
   }
 }

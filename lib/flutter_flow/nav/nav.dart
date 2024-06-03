@@ -138,14 +138,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const OrderHistoryWidget(),
         ),
         FFRoute(
-          name: 'orders',
-          path: '/orders',
-          builder: (context, params) => const OrdersWidget(),
+          name: 'orders-Admin',
+          path: '/ordersAdmin',
+          builder: (context, params) => const OrdersAdminWidget(),
         ),
         FFRoute(
-          name: 'userItems',
+          name: 'userItems-Admin',
           path: '/userOrders',
-          builder: (context, params) => const UserItemsWidget(),
+          builder: (context, params) => UserItemsAdminWidget(
+            orderID: params.getParam(
+              'orderID',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['orders'],
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

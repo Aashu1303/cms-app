@@ -1,13 +1,13 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
-import 'item_model.dart';
-export 'item_model.dart';
+import 'order_detail_user_model.dart';
+export 'order_detail_user_model.dart';
 
-class ItemWidget extends StatefulWidget {
-  const ItemWidget({
+class OrderDetailUserWidget extends StatefulWidget {
+  const OrderDetailUserWidget({
     super.key,
     required this.orderItems,
   });
@@ -15,11 +15,11 @@ class ItemWidget extends StatefulWidget {
   final DocumentReference? orderItems;
 
   @override
-  State<ItemWidget> createState() => _ItemWidgetState();
+  State<OrderDetailUserWidget> createState() => _OrderDetailUserWidgetState();
 }
 
-class _ItemWidgetState extends State<ItemWidget> {
-  late ItemModel _model;
+class _OrderDetailUserWidgetState extends State<OrderDetailUserWidget> {
+  late OrderDetailUserModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -30,7 +30,7 @@ class _ItemWidgetState extends State<ItemWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ItemModel());
+    _model = createModel(context, () => OrderDetailUserModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -245,35 +245,68 @@ class _ItemWidgetState extends State<ItemWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                    child: Row(
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                    child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                24.0, 4.0, 24.0, 24.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Total',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .override(
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                                RichText(
-                                  textScaler: MediaQuery.of(context).textScaler,
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Rs ',
+                        if (columnOrdersRecord.status != 'Rejected')
+                          BarcodeWidget(
+                            data: widget.orderItems!.id,
+                            barcode: Barcode.qrCode(),
+                            width: 300.0,
+                            height: 90.0,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            backgroundColor: Colors.transparent,
+                            errorBuilder: (context, error) => const SizedBox(
+                              width: 300.0,
+                              height: 90.0,
+                            ),
+                            drawText: false,
+                          ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 40.0, 24.0, 24.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Total',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .override(
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                    RichText(
+                                      textScaler:
+                                          MediaQuery.of(context).textScaler,
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: 'Rs ',
+                                            style: FlutterFlowTheme.of(context)
+                                                .displaySmall
+                                                .override(
+                                                  fontFamily: 'Outfit',
+                                                  fontSize: 20.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          TextSpan(
+                                            text: columnOrdersRecord.totalAmount
+                                                .toString(),
+                                            style: const TextStyle(),
+                                          )
+                                        ],
                                         style: FlutterFlowTheme.of(context)
                                             .displaySmall
                                             .override(
@@ -282,102 +315,12 @@ class _ItemWidgetState extends State<ItemWidget> {
                                               letterSpacing: 0.0,
                                             ),
                                       ),
-                                      TextSpan(
-                                        text: columnOrdersRecord.totalAmount
-                                            .toString(),
-                                        style: const TextStyle(),
-                                      )
-                                    ],
-                                    style: FlutterFlowTheme.of(context)
-                                        .displaySmall
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          fontSize: 20.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 16.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Decline',
-                              options: FFButtonOptions(
-                                width: double.infinity,
-                                height: 50.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).error,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Colors.white,
-                                      fontSize: 25.0,
-                                      letterSpacing: 0.0,
                                     ),
-                                elevation: 2.0,
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                                  ],
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 0.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Accept',
-                              options: FFButtonOptions(
-                                width: double.infinity,
-                                height: 50.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: const Color(0xFF39AA73),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Colors.white,
-                                      fontSize: 25.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                elevation: 2.0,
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
+                          ],
                         ),
                       ],
                     ),

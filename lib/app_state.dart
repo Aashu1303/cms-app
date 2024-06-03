@@ -95,6 +95,12 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInClothes(int index, ItemStruct value) {
     _Clothes.insert(index, value);
   }
+
+  DocumentReference? _userOrderID;
+  DocumentReference? get userOrderID => _userOrderID;
+  set userOrderID(DocumentReference? value) {
+    _userOrderID = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

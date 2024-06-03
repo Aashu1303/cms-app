@@ -1,5 +1,5 @@
 import '/backend/backend.dart';
-import '/components/item/item_widget.dart';
+import '/components/order_detail_user/order_detail_user_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -765,7 +765,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                                                       MediaQuery.sizeOf(context)
                                                               .height *
                                                           4.0,
-                                                  child: ItemWidget(
+                                                  child: OrderDetailUserWidget(
                                                     orderItems:
                                                         listViewOrdersRecord
                                                             .reference,
@@ -1031,7 +1031,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                                                         text: TextSpan(
                                                           children: [
                                                             TextSpan(
-                                                              text: '\$ ',
+                                                              text: 'Rs ',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .headlineSmall

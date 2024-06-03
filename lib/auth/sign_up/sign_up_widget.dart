@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -42,7 +43,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     _model.roomNumberFocusNode ??= FocusNode();
 
     _model.contactTextController ??= TextEditingController();
-    _model.contactFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -542,74 +542,151 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                       0.0, 0.0, 0.0, 16.0),
                                   child: SizedBox(
                                     width: 370.0,
-                                    child: TextFormField(
-                                      controller: _model.contactTextController,
-                                      focusNode: _model.contactFocusNode,
-                                      autofocus: true,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Contact',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              letterSpacing: 0.0,
+                                    child: Autocomplete<String>(
+                                      initialValue: const TextEditingValue(),
+                                      optionsBuilder: (textEditingValue) {
+                                        if (textEditingValue.text == '') {
+                                          return const Iterable<String>.empty();
+                                        }
+                                        return ['Option 1'].where((option) {
+                                          final lowercaseOption =
+                                              option.toLowerCase();
+                                          return lowercaseOption.contains(
+                                              textEditingValue.text
+                                                  .toLowerCase());
+                                        });
+                                      },
+                                      optionsViewBuilder:
+                                          (context, onSelected, options) {
+                                        return AutocompleteOptionsList(
+                                          textFieldKey: _model.contactKey,
+                                          textController:
+                                              _model.contactTextController!,
+                                          options: options.toList(),
+                                          onSelected: onSelected,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          textHighlightStyle: const TextStyle(),
+                                          elevation: 4.0,
+                                          optionBackgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryBackground,
+                                          optionHighlightColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          maxHeight: 200.0,
+                                        );
+                                      },
+                                      onSelected: (String selection) {
+                                        setState(() => _model
+                                            .contactSelectedOption = selection);
+                                        FocusScope.of(context).unfocus();
+                                      },
+                                      fieldViewBuilder: (
+                                        context,
+                                        textEditingController,
+                                        focusNode,
+                                        onEditingComplete,
+                                      ) {
+                                        _model.contactFocusNode = focusNode;
+
+                                        _model.contactTextController =
+                                            textEditingController;
+                                        return TextFormField(
+                                          key: _model.contactKey,
+                                          controller: textEditingController,
+                                          focusNode: focusNode,
+                                          onEditingComplete: onEditingComplete,
+                                          autofocus: true,
+                                          textCapitalization:
+                                              TextCapitalization.none,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Contact',
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Outfit',
+                                                      letterSpacing: 0.0,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
                                             ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            width: 2.0,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryBackground,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      minLines: 1,
-                                      keyboardType: TextInputType.phone,
-                                      validator: _model
-                                          .contactTextControllerValidator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                letterSpacing: 0.0,
+                                              ),
+                                          minLines: 1,
+                                          maxLength: 10,
+                                          maxLengthEnforcement:
+                                              MaxLengthEnforcement.enforced,
+                                          buildCounter: (context,
+                                                  {required currentLength,
+                                                  required isFocused,
+                                                  maxLength}) =>
+                                              null,
+                                          keyboardType: TextInputType.phone,
+                                          validator: _model
+                                              .contactTextControllerValidator
+                                              .asValidator(context),
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp('[0-9]'))
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),
