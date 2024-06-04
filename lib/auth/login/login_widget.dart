@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'login_model.dart';
 export 'login_model.dart';
 
@@ -41,6 +42,8 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -603,11 +606,12 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                                               FFAppState().uid =
                                                   currentUserReference;
-                                              setState(() {});
-                                              if (valueOrDefault(
+                                              FFAppState().role =
+                                                  valueOrDefault(
                                                       currentUserDocument?.role,
-                                                      '') ==
-                                                  'user') {
+                                                      '');
+                                              setState(() {});
+                                              if (FFAppState().role == 'user') {
                                                 context.goNamedAuth(
                                                     'AddToBucket',
                                                     context.mounted);

@@ -8,7 +8,6 @@ import '/backend/schema/structs/index.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
-import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -75,13 +74,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
+          appStateNotifier.loggedIn ? const BlankWidget() : const LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
+              appStateNotifier.loggedIn ? const BlankWidget() : const LoginWidget(),
         ),
         FFRoute(
           name: 'login',
@@ -91,9 +90,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'AddToBucket',
           path: '/addToBucket',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'AddToBucket')
-              : const AddToBucketWidget(),
+          requireAuth: true,
+          builder: (context, params) => const AddToBucketWidget(),
         ),
         FFRoute(
           name: 'signUp',
@@ -118,19 +116,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Bucket',
           path: '/bucket',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Bucket')
-              : const BucketWidget(),
+          builder: (context, params) => const BucketWidget(),
         ),
         FFRoute(
           name: 'profile',
           path: '/profile',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'profile')
-              : const NavBarPage(
-                  initialPage: 'profile',
-                  page: ProfileWidget(),
-                ),
+          builder: (context, params) => const ProfileWidget(),
         ),
         FFRoute(
           name: 'orderHistory',
@@ -153,6 +144,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               collectionNamePath: ['orders'],
             ),
           ),
+        ),
+        FFRoute(
+          name: 'blank',
+          path: '/blank',
+          builder: (context, params) => const BlankWidget(),
+        ),
+        FFRoute(
+          name: 'services',
+          path: '/services',
+          builder: (context, params) => const ServicesWidget(),
+        ),
+        FFRoute(
+          name: 'profileAdmin',
+          path: '/profileAdmin',
+          builder: (context, params) => const ProfileAdminWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

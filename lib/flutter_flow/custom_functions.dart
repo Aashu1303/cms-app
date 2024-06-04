@@ -19,3 +19,7 @@ DocumentReference newCustomFunction(String ref) {
   DocumentReference documentReference = fr.doc(documentPath);
   return documentReference;
 }
+
+int? decreaseVal(int dec) {
+  return (-dec);
+}

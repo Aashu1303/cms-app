@@ -12,3 +12,6 @@ export '/user/order_history/order_history_widget.dart' show OrderHistoryWidget;
 export '/admin/orders_admin/orders_admin_widget.dart' show OrdersAdminWidget;
 export '/admin/user_items_admin/user_items_admin_widget.dart'
     show UserItemsAdminWidget;
+export '/temp_pages/blank/blank_widget.dart' show BlankWidget;
+export '/user/services/services_widget.dart' show ServicesWidget;
+export '/admin/profile_admin/profile_admin_widget.dart' show ProfileAdminWidget;

@@ -24,6 +24,9 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _totalCost = prefs.getDouble('ff_totalCost') ?? _totalCost;
     });
+    _safeInit(() {
+      _role = prefs.getString('ff_role') ?? _role;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -96,10 +99,11 @@ class FFAppState extends ChangeNotifier {
     _Clothes.insert(index, value);
   }
 
-  DocumentReference? _userOrderID;
-  DocumentReference? get userOrderID => _userOrderID;
-  set userOrderID(DocumentReference? value) {
-    _userOrderID = value;
+  String _role = '';
+  String get role => _role;
+  set role(String value) {
+    _role = value;
+    prefs.setString('ff_role', value);
   }
 }
 
