@@ -733,7 +733,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                                 .roomNumberTextController.text,
                                           ));
 
-                                      context.pushNamedAuth(
+                                      await authManager.sendEmailVerification();
+
+                                      context.goNamedAuth(
                                           'login', context.mounted);
                                     },
                                     text: 'Create Account',

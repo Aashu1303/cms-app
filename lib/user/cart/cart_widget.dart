@@ -665,101 +665,103 @@ class _CartWidgetState extends State<CartWidget> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-            child: FFButtonWidget(
-              onPressed: () async {
-                _model.queryClothes = await queryClothesRecordOnce(
-                  parent: FFAppState().uid,
-                );
-                FFAppState().loopStart = 0;
-                FFAppState().loopEnd = _model.queryClothes!.length;
-                setState(() {});
-
-                context.pushNamed('AddToBucket');
-
-                while (FFAppState().loopStart < FFAppState().loopEnd) {
-                  FFAppState().insertAtIndexInClothes(
-                      FFAppState().loopStart,
-                      ItemStruct(
-                        type:
-                            _model.queryClothes?[FFAppState().loopStart].type,
-                        washType: _model
-                            .queryClothes?[FFAppState().loopStart].washType,
-                        quantity: _model
-                            .queryClothes?[FFAppState().loopStart].quantity,
-                        price:
-                            _model.queryClothes?[FFAppState().loopStart].price,
-                      ));
+          if (FFAppState().totalCost > 0.0)
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: () async {
+                  _model.queryClothes = await queryClothesRecordOnce(
+                    parent: FFAppState().uid,
+                  );
+                  FFAppState().loopStart = 0;
+                  FFAppState().loopEnd = _model.queryClothes!.length;
                   setState(() {});
-                  await _model.queryClothes![FFAppState().loopStart].reference
-                      .delete();
-                  FFAppState().loopStart = FFAppState().loopStart + 1;
-                  setState(() {});
-                }
 
-                var ordersRecordReference = OrdersRecord.collection.doc();
-                await ordersRecordReference.set({
-                  ...createOrdersRecordData(
-                    uid: FFAppState().uid,
-                    status: 'on-hold',
-                    totalAmount: FFAppState().totalCost,
-                  ),
-                  ...mapToFirestore(
-                    {
-                      'createdAt': FieldValue.serverTimestamp(),
-                      'updatedAt': FieldValue.serverTimestamp(),
-                      'items': getItemListFirestoreData(
-                        FFAppState().Clothes,
-                      ),
-                    },
-                  ),
-                });
-                _model.createdDoc = OrdersRecord.getDocumentFromData({
-                  ...createOrdersRecordData(
-                    uid: FFAppState().uid,
-                    status: 'on-hold',
-                    totalAmount: FFAppState().totalCost,
-                  ),
-                  ...mapToFirestore(
-                    {
-                      'createdAt': DateTime.now(),
-                      'updatedAt': DateTime.now(),
-                      'items': getItemListFirestoreData(
-                        FFAppState().Clothes,
-                      ),
-                    },
-                  ),
-                }, ordersRecordReference);
+                  context.pushNamed('AddToBucket');
 
-                setState(() {});
-              },
-              text: 'Continue to Checkout',
-              options: FFButtonOptions(
-                width: double.infinity,
-                height: 50.0,
-                padding: const EdgeInsets.all(0.0),
-                iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).primary,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: 'Plus Jakarta Sans',
-                      letterSpacing: 0.0,
+                  while (FFAppState().loopStart < FFAppState().loopEnd) {
+                    FFAppState().insertAtIndexInClothes(
+                        FFAppState().loopStart,
+                        ItemStruct(
+                          type: _model
+                              .queryClothes?[FFAppState().loopStart].type,
+                          washType: _model
+                              .queryClothes?[FFAppState().loopStart].washType,
+                          quantity: _model
+                              .queryClothes?[FFAppState().loopStart].quantity,
+                          price: _model
+                              .queryClothes?[FFAppState().loopStart].price,
+                        ));
+                    setState(() {});
+                    await _model.queryClothes![FFAppState().loopStart].reference
+                        .delete();
+                    FFAppState().loopStart = FFAppState().loopStart + 1;
+                    setState(() {});
+                  }
+
+                  var ordersRecordReference = OrdersRecord.collection.doc();
+                  await ordersRecordReference.set({
+                    ...createOrdersRecordData(
+                      uid: FFAppState().uid,
+                      status: 'on-hold',
+                      totalAmount: FFAppState().totalCost,
                     ),
-                elevation: 2.0,
-                borderSide: const BorderSide(
-                  color: Colors.transparent,
-                  width: 1.0,
-                ),
-                borderRadius: BorderRadius.circular(50.0),
-                hoverColor: FlutterFlowTheme.of(context).accent1,
-                hoverBorderSide: BorderSide(
+                    ...mapToFirestore(
+                      {
+                        'createdAt': FieldValue.serverTimestamp(),
+                        'updatedAt': FieldValue.serverTimestamp(),
+                        'items': getItemListFirestoreData(
+                          FFAppState().Clothes,
+                        ),
+                      },
+                    ),
+                  });
+                  _model.createdDoc = OrdersRecord.getDocumentFromData({
+                    ...createOrdersRecordData(
+                      uid: FFAppState().uid,
+                      status: 'on-hold',
+                      totalAmount: FFAppState().totalCost,
+                    ),
+                    ...mapToFirestore(
+                      {
+                        'createdAt': DateTime.now(),
+                        'updatedAt': DateTime.now(),
+                        'items': getItemListFirestoreData(
+                          FFAppState().Clothes,
+                        ),
+                      },
+                    ),
+                  }, ordersRecordReference);
+
+                  setState(() {});
+                },
+                text: 'Continue to Checkout',
+                options: FFButtonOptions(
+                  width: double.infinity,
+                  height: 50.0,
+                  padding: const EdgeInsets.all(0.0),
+                  iconPadding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
-                  width: 1.0,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Plus Jakarta Sans',
+                        letterSpacing: 0.0,
+                      ),
+                  elevation: 2.0,
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(50.0),
+                  hoverColor: FlutterFlowTheme.of(context).accent1,
+                  hoverBorderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).primary,
+                    width: 1.0,
+                  ),
+                  hoverTextColor: FlutterFlowTheme.of(context).primary,
                 ),
-                hoverTextColor: FlutterFlowTheme.of(context).primary,
               ),
             ),
-          ),
           wrapWithModel(
             model: _model.navBar1Model,
             updateCallback: () => setState(() {}),

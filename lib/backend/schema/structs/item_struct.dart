@@ -25,26 +25,32 @@ class ItemStruct extends FFFirebaseStruct {
   String? _type;
   String get type => _type ?? '';
   set type(String? val) => _type = val;
+
   bool hasType() => _type != null;
 
   // "WashType" field.
   String? _washType;
   String get washType => _washType ?? '';
   set washType(String? val) => _washType = val;
+
   bool hasWashType() => _washType != null;
 
   // "Quantity" field.
   int? _quantity;
   int get quantity => _quantity ?? 0;
   set quantity(int? val) => _quantity = val;
-  void incrementQuantity(int amount) => _quantity = quantity + amount;
+
+  void incrementQuantity(int amount) => quantity = quantity + amount;
+
   bool hasQuantity() => _quantity != null;
 
   // "Price" field.
   int? _price;
   int get price => _price ?? 0;
   set price(int? val) => _price = val;
-  void incrementPrice(int amount) => _price = price + amount;
+
+  void incrementPrice(int amount) => price = price + amount;
+
   bool hasPrice() => _price != null;
 
   static ItemStruct fromMap(Map<String, dynamic> data) => ItemStruct(

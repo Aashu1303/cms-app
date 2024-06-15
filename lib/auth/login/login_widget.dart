@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/resend_email/resend_email_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -587,6 +588,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         Expanded(
                                           child: FFButtonWidget(
                                             onPressed: () async {
+                                              await authManager.refreshUser();
                                               GoRouter.of(context)
                                                   .prepareAuthEvent();
 
@@ -604,21 +606,62 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 return;
                                               }
 
-                                              FFAppState().uid =
-                                                  currentUserReference;
-                                              FFAppState().role =
-                                                  valueOrDefault(
-                                                      currentUserDocument?.role,
-                                                      '');
-                                              setState(() {});
-                                              if (FFAppState().role == 'user') {
-                                                context.goNamedAuth(
-                                                    'AddToBucket',
-                                                    context.mounted);
+                                              if (currentUserEmailVerified) {
+                                                FFAppState().uid =
+                                                    currentUserReference;
+                                                FFAppState().role =
+                                                    valueOrDefault(
+                                                        currentUserDocument
+                                                            ?.role,
+                                                        '');
+                                                setState(() {});
+                                                if (FFAppState().role ==
+                                                    'user') {
+                                                  context.goNamedAuth(
+                                                      'services',
+                                                      context.mounted);
+                                                } else {
+                                                  context.goNamedAuth(
+                                                      'orders-Admin',
+                                                      context.mounted);
+                                                }
                                               } else {
-                                                context.goNamedAuth(
-                                                    'orders-Admin',
-                                                    context.mounted);
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  isDismissible: false,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () => _model
+                                                              .unfocusNode
+                                                              .canRequestFocus
+                                                          ? FocusScope.of(
+                                                                  context)
+                                                              .requestFocus(_model
+                                                                  .unfocusNode)
+                                                          : FocusScope.of(
+                                                                  context)
+                                                              .unfocus(),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child: const SizedBox(
+                                                          height: 300.0,
+                                                          child:
+                                                              ResendEmailWidget(),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
+
+                                                context.pushNamedAuth(
+                                                    'login', context.mounted);
                                               }
                                             },
                                             text: 'Log in',
@@ -667,8 +710,40 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        SelectionArea(
-                                            child: Text(
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed('forgotPassword');
+                                          },
+                                          child: Text(
+                                            'Forgot you Password ?',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily:
+                                                      'Plus Jakarta Sans',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 20.0, 0.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
                                           'Don\'t have an account? ',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -679,7 +754,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                         .secondaryText,
                                                 letterSpacing: 0.0,
                                               ),
-                                        )),
+                                        ),
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,

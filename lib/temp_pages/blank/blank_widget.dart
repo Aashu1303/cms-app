@@ -28,7 +28,11 @@ class _BlankWidgetState extends State<BlankWidget> {
       if (FFAppState().role != 'user') {
         context.pushNamed('orders-Admin');
       } else {
-        context.pushNamed('services');
+        if (FFAppState().role == '') {
+          context.pushNamed('login');
+        } else {
+          context.pushNamed('AddToBucket');
+        }
       }
     });
 

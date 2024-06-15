@@ -18,8 +18,11 @@ class ClothesStruct extends FFFirebaseStruct {
   List<ItemStruct>? _items;
   List<ItemStruct> get items => _items ?? const [];
   set items(List<ItemStruct>? val) => _items = val;
-  void updateItems(Function(List<ItemStruct>) updateFn) =>
-      updateFn(_items ??= []);
+
+  void updateItems(Function(List<ItemStruct>) updateFn) {
+    updateFn(items ??= []);
+  }
+
   bool hasItems() => _items != null;
 
   static ClothesStruct fromMap(Map<String, dynamic> data) => ClothesStruct(
@@ -41,7 +44,7 @@ class ClothesStruct extends FFFirebaseStruct {
         'items': serializeParam(
           _items,
           ParamType.DataStruct,
-          true,
+          isList: true,
         ),
       }.withoutNulls;
 

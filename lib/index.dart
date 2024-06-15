@@ -15,3 +15,5 @@ export '/admin/user_items_admin/user_items_admin_widget.dart'
 export '/temp_pages/blank/blank_widget.dart' show BlankWidget;
 export '/user/services/services_widget.dart' show ServicesWidget;
 export '/admin/profile_admin/profile_admin_widget.dart' show ProfileAdminWidget;
+export '/auth/forgot_password/forgot_password_widget.dart'
+    show ForgotPasswordWidget;

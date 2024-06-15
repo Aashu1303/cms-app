@@ -23,3 +23,7 @@ DocumentReference newCustomFunction(String ref) {
 int? decreaseVal(int dec) {
   return (-dec);
 }
+
+DateTime calculateDeliveryTime(DateTime orderDate) {
+  return orderDate.add(Duration(days: 2));
+}

@@ -77,26 +77,26 @@ class FFAppState extends ChangeNotifier {
   }
 
   void addToClothes(ItemStruct value) {
-    _Clothes.add(value);
+    Clothes.add(value);
   }
 
   void removeFromClothes(ItemStruct value) {
-    _Clothes.remove(value);
+    Clothes.remove(value);
   }
 
   void removeAtIndexFromClothes(int index) {
-    _Clothes.removeAt(index);
+    Clothes.removeAt(index);
   }
 
   void updateClothesAtIndex(
     int index,
     ItemStruct Function(ItemStruct) updateFn,
   ) {
-    _Clothes[index] = updateFn(_Clothes[index]);
+    Clothes[index] = updateFn(_Clothes[index]);
   }
 
   void insertAtIndexInClothes(int index, ItemStruct value) {
-    _Clothes.insert(index, value);
+    Clothes.insert(index, value);
   }
 
   String _role = '';

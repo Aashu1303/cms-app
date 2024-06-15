@@ -104,7 +104,7 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed('orderHistory');
+                  context.pushNamed('services');
                 },
               ),
               FlutterFlowIconButton(
@@ -113,12 +113,12 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                 borderWidth: 1.0,
                 buttonSize: 50.0,
                 icon: const Icon(
-                  Icons.shopping_cart,
+                  Icons.shopping_basket_rounded,
                   color: Color(0xFF9299A1),
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed('Cart');
+                  context.pushNamed('Bucket');
                 },
               ),
               Column(
@@ -152,12 +152,12 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
                 borderWidth: 1.0,
                 buttonSize: 50.0,
                 icon: const Icon(
-                  Icons.shopping_basket_rounded,
+                  Icons.shopping_cart,
                   color: Color(0xFF9299A1),
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  context.pushNamed('Bucket');
+                  context.pushNamed('Cart');
                 },
               ),
               FlutterFlowIconButton(
