@@ -81,78 +81,34 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 24.0),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 0.0,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(12.0),
-                                          bottomRight: Radius.circular(12.0),
-                                          topLeft: Radius.circular(12.0),
-                                          topRight: Radius.circular(12.0),
-                                        ),
-                                      ),
-                                      child: Container(
-                                        width: 48.0,
-                                        height: 48.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: Image.asset(
-                                              'assets/images/DAAsset_1.png',
-                                            ).image,
-                                          ),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              blurRadius: 8.0,
-                                              color: Color(0x1917171C),
-                                              offset: Offset(
-                                                0.0,
-                                                4.0,
-                                              ),
-                                              spreadRadius: 0.0,
-                                            )
-                                          ],
-                                          borderRadius: const BorderRadius.only(
-                                            bottomLeft: Radius.circular(12.0),
-                                            bottomRight: Radius.circular(12.0),
-                                            topLeft: Radius.circular(12.0),
-                                            topRight: Radius.circular(12.0),
-                                          ),
-                                        ),
+                                        0.0, 0.0, 0.0, 20.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.asset(
+                                        'assets/images/Black___White_Minimalist_Business_Logo-removebg-preview.png',
+                                        width: 135.0,
+                                        height: 145.0,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
-                                  SelectionArea(
-                                      child: Text(
-                                    'EduSphere',
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineSmall
-                                        .override(
-                                          fontFamily: 'Outfit',
-                                          fontSize: 30.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          lineHeight: 1.2,
-                                        ),
-                                  )),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 0.0),
-                                    child: SelectionArea(
-                                        child: Text(
-                                      'Welcome back! Please enter your details.',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodySmall
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            letterSpacing: 0.0,
-                                            lineHeight: 1.5,
-                                          ),
-                                    )),
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, -1.0),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 12.0, 0.0, 0.0),
+                                      child: SelectionArea(
+                                          child: Text(
+                                        'Welcome back!  Please enter your details.',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              letterSpacing: 0.0,
+                                              lineHeight: 1.5,
+                                            ),
+                                      )),
+                                    ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(

@@ -1,4 +1,4 @@
-# EduSphere
+# VITSM
 
 A new Flutter project.
 

@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
-    userStream = eduSphereFirebaseUserStream()
+    userStream = vitsmFirebaseUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
       });
@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'EduSphere',
+      title: 'VITSM',
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

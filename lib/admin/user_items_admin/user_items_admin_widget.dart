@@ -3,10 +3,12 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'user_items_admin_model.dart';
 export 'user_items_admin_model.dart';
 
@@ -170,6 +172,7 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                         columnOrdersRecord.items.toList();
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
+                                      primary: false,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount: items.length,
@@ -198,7 +201,7 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                                 )
                                               ],
                                               borderRadius:
-                                                  BorderRadius.circular(0.0),
+                                                  BorderRadius.circular(6.0),
                                             ),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
@@ -319,7 +322,7 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                                                 .fromSTEB(
                                                                     8.0,
                                                                     0.0,
-                                                                    0.0,
+                                                                    10.0,
                                                                     0.0),
                                                         child: RichText(
                                                           textScaler:
@@ -475,39 +478,68 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                                         ),
                                                   ),
                                                 ),
-                                                RichText(
-                                                  textScaler:
-                                                      MediaQuery.of(context)
-                                                          .textScaler,
-                                                  text: TextSpan(
-                                                    children: [
-                                                      TextSpan(
-                                                        text: 'Phone Number:  ',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Plus Jakarta Sans',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                      TextSpan(
-                                                        text: columnUsersRecord
-                                                            .phoneNumber,
-                                                        style: const TextStyle(),
-                                                      )
-                                                    ],
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          letterSpacing: 0.0,
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    unawaited(
+                                                      () async {
+                                                        await launchUrl(Uri(
+                                                          scheme: 'tel',
+                                                          path:
+                                                              columnUsersRecord
+                                                                  .phoneNumber,
+                                                        ));
+                                                      }(),
+                                                    );
+                                                  },
+                                                  child: RichText(
+                                                    textScaler:
+                                                        MediaQuery.of(context)
+                                                            .textScaler,
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text:
+                                                              'Phone Number:  ',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Plus Jakarta Sans',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
+                                                        TextSpan(
+                                                          text:
+                                                              columnUsersRecord
+                                                                  .phoneNumber,
+                                                          style: const TextStyle(
+                                                            color: Color(
+                                                                0xFF260FE7),
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                        )
+                                                      ],
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Plus Jakarta Sans',
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
                                                   ),
                                                 ),
                                                 RichText(

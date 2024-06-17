@@ -7,8 +7,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class EduSphereFirebaseUser extends BaseAuthUser {
-  EduSphereFirebaseUser(this.user);
+class VitsmFirebaseUser extends BaseAuthUser {
+  VitsmFirebaseUser(this.user);
   User? user;
   @override
   bool get loggedIn => user != null;
@@ -56,18 +56,17 @@ class EduSphereFirebaseUser extends BaseAuthUser {
 
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
-  static BaseAuthUser fromFirebaseUser(User? user) =>
-      EduSphereFirebaseUser(user);
+  static BaseAuthUser fromFirebaseUser(User? user) => VitsmFirebaseUser(user);
 }
 
-Stream<BaseAuthUser> eduSphereFirebaseUserStream() => FirebaseAuth.instance
+Stream<BaseAuthUser> vitsmFirebaseUserStream() => FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(user))
         .map<BaseAuthUser>(
       (user) {
-        currentUser = EduSphereFirebaseUser(user);
+        currentUser = VitsmFirebaseUser(user);
         if (!kIsWeb) {
           FirebaseCrashlytics.instance.setUserIdentifier(user?.uid ?? '');
         }
