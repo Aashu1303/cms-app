@@ -27,3 +27,91 @@ int? decreaseVal(int dec) {
 DateTime calculateDeliveryTime(DateTime orderDate) {
   return orderDate.add(Duration(days: 2));
 }
+
+List<OrdersRecord>? filterOrdersByTodayDelivery(
+  List<OrdersRecord> orders,
+  DateTime todayDate,
+) {
+  DateTime getDateOnly(DateTime? dateTime) {
+    if (dateTime == null) {
+      return DateTime(
+          1970, 1, 1); // Default to Unix epoch start if dateTime is null
+    }
+    return DateTime(dateTime.year, dateTime.month, dateTime.day);
+  }
+
+  DateTime todayOnly = getDateOnly(todayDate);
+
+  List<OrdersRecord> filteredOrders = orders.where((order) {
+    // Check if deliveryDate exists and matches today
+    if (order.deliveryDate != null) {
+      DateTime deliveryDate = order.deliveryDate!;
+      // Check if the order status is "Accepted" and service is "Pending" or null
+      if (getDateOnly(deliveryDate) == todayOnly &&
+          order.status == "Accepted" &&
+          (order.service == "Pending" || order.service != "Completed")) {
+        return true;
+      }
+    }
+    return false;
+  }).toList();
+
+  return filteredOrders;
+}
+
+DateTime? getDateOnly(DateTime dateTime) {
+  return DateTime(dateTime.year, dateTime.month, dateTime.day);
+}
+
+List<OrdersRecord> filterOrdersByToday(
+  List<OrdersRecord> orders,
+  DateTime todayDate,
+) {
+  DateTime getDateOnly(DateTime dateTime) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day);
+  }
+
+  DateTime todayOnly = getDateOnly(todayDate);
+
+  List<OrdersRecord> filteredOrders = orders.where((order) {
+    DateTime? createdAt = order
+        .createdAt; // Assuming createdAt is a DateTime object in OrdersRecord
+    return getDateOnly(createdAt!) == todayOnly;
+  }).toList();
+
+  return filteredOrders;
+}
+
+List<dynamic> groupOrdersByDate(
+  List<OrdersRecord> orders,
+  DateTime todayDate,
+) {
+  DateTime getDateOnly(DateTime? dateTime) {
+    if (dateTime == null) {
+      return DateTime(
+          1970, 1, 1); // Default to Unix epoch start if dateTime is null
+    }
+    return DateTime(dateTime.year, dateTime.month, dateTime.day);
+  }
+
+  DateTime today = getDateOnly(todayDate);
+  DateTime yesterday = getDateOnly(todayDate.subtract(Duration(days: 1)));
+
+  List<OrdersRecord> todayOrders = [];
+  List<OrdersRecord> yesterdayOrders = [];
+  List<OrdersRecord> previousOrders = [];
+
+  for (var order in orders) {
+    DateTime orderDate = getDateOnly(order.createdAt);
+
+    if (orderDate == today) {
+      todayOrders.add(order);
+    } else if (orderDate == yesterday) {
+      yesterdayOrders.add(order);
+    } else {
+      previousOrders.add(order);
+    }
+  }
+
+  return [todayOrders, yesterdayOrders, previousOrders];
+}

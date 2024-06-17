@@ -202,11 +202,12 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                           ),
                           StreamBuilder<List<OrdersRecord>>(
                             stream: queryOrdersRecord(
-                              queryBuilder: (ordersRecord) =>
-                                  ordersRecord.where(
-                                'uid',
-                                isEqualTo: FFAppState().uid,
-                              ),
+                              queryBuilder: (ordersRecord) => ordersRecord
+                                  .where(
+                                    'uid',
+                                    isEqualTo: FFAppState().uid,
+                                  )
+                                  .orderBy('createdAt', descending: true),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.

@@ -105,6 +105,12 @@ class FFAppState extends ChangeNotifier {
     _role = value;
     prefs.setString('ff_role', value);
   }
+
+  String _todayDate = '';
+  String get todayDate => _todayDate;
+  set todayDate(String value) {
+    _todayDate = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

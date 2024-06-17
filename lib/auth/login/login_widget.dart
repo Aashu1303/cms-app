@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/resend_email/resend_email_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -588,7 +587,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         Expanded(
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              await authManager.refreshUser();
                                               GoRouter.of(context)
                                                   .prepareAuthEvent();
 
@@ -606,62 +604,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 return;
                                               }
 
-                                              if (currentUserEmailVerified) {
-                                                FFAppState().uid =
-                                                    currentUserReference;
-                                                FFAppState().role =
-                                                    valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.role,
-                                                        '');
-                                                setState(() {});
-                                                if (FFAppState().role ==
-                                                    'user') {
-                                                  context.goNamedAuth(
-                                                      'services',
-                                                      context.mounted);
-                                                } else {
-                                                  context.goNamedAuth(
-                                                      'orders-Admin',
-                                                      context.mounted);
-                                                }
+                                              FFAppState().uid =
+                                                  currentUserReference;
+                                              FFAppState().role =
+                                                  valueOrDefault(
+                                                      currentUserDocument?.role,
+                                                      '');
+                                              setState(() {});
+                                              if (FFAppState().role == 'user') {
+                                                context.goNamedAuth('services',
+                                                    context.mounted);
                                               } else {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  isDismissible: false,
-                                                  enableDrag: false,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child: const SizedBox(
-                                                          height: 300.0,
-                                                          child:
-                                                              ResendEmailWidget(),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ).then((value) =>
-                                                    safeSetState(() {}));
-
-                                                context.pushNamedAuth(
-                                                    'login', context.mounted);
+                                                context.goNamedAuth(
+                                                    'orders-Admin',
+                                                    context.mounted);
                                               }
                                             },
                                             text: 'Log in',

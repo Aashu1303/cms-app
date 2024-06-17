@@ -705,11 +705,11 @@ class _CartWidgetState extends State<CartWidget> {
                       uid: FFAppState().uid,
                       status: 'on-hold',
                       totalAmount: FFAppState().totalCost,
+                      createdAt: getCurrentTimestamp,
+                      updatedAt: getCurrentTimestamp,
                     ),
                     ...mapToFirestore(
                       {
-                        'createdAt': FieldValue.serverTimestamp(),
-                        'updatedAt': FieldValue.serverTimestamp(),
                         'items': getItemListFirestoreData(
                           FFAppState().Clothes,
                         ),
@@ -721,11 +721,11 @@ class _CartWidgetState extends State<CartWidget> {
                       uid: FFAppState().uid,
                       status: 'on-hold',
                       totalAmount: FFAppState().totalCost,
+                      createdAt: getCurrentTimestamp,
+                      updatedAt: getCurrentTimestamp,
                     ),
                     ...mapToFirestore(
                       {
-                        'createdAt': DateTime.now(),
-                        'updatedAt': DateTime.now(),
                         'items': getItemListFirestoreData(
                           FFAppState().Clothes,
                         ),
