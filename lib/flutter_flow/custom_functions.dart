@@ -82,7 +82,7 @@ List<OrdersRecord> filterOrdersByToday(
   return filteredOrders;
 }
 
-List<dynamic> groupOrdersByDate(
+List<OrdersStruct> getOrdersByDate(
   List<OrdersRecord> orders,
   DateTime todayDate,
 ) {
@@ -97,21 +97,27 @@ List<dynamic> groupOrdersByDate(
   DateTime today = getDateOnly(todayDate);
   DateTime yesterday = getDateOnly(todayDate.subtract(Duration(days: 1)));
 
-  List<OrdersRecord> todayOrders = [];
-  List<OrdersRecord> yesterdayOrders = [];
-  List<OrdersRecord> previousOrders = [];
+  List<DocumentReference> todayOrderRefs = [];
+  List<DocumentReference> yesterdayOrderRefs = [];
+  List<DocumentReference> previousOrderRefs = [];
 
   for (var order in orders) {
     DateTime orderDate = getDateOnly(order.createdAt);
 
     if (orderDate == today) {
-      todayOrders.add(order);
+      todayOrderRefs.add(order.reference);
     } else if (orderDate == yesterday) {
-      yesterdayOrders.add(order);
+      yesterdayOrderRefs.add(order.reference);
     } else {
-      previousOrders.add(order);
+      previousOrderRefs.add(order.reference);
     }
   }
+
+  OrdersStruct todayOrders = OrdersStruct(type: "Today", order: todayOrderRefs);
+  OrdersStruct yesterdayOrders =
+      OrdersStruct(type: "Yesterday", order: yesterdayOrderRefs);
+  OrdersStruct previousOrders =
+      OrdersStruct(type: "Previous", order: previousOrderRefs);
 
   return [todayOrders, yesterdayOrders, previousOrders];
 }

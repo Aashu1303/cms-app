@@ -207,7 +207,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                                     'uid',
                                     isEqualTo: FFAppState().uid,
                                   )
-                                  .orderBy('createdAt', descending: true),
+                                  .orderBy('deliveryDate', descending: true),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.

@@ -11,8 +11,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 class OrdersStruct extends FFFirebaseStruct {
   OrdersStruct({
     List<DocumentReference>? order,
+    String? type,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _order = order,
+        _type = type,
         super(firestoreUtilData);
 
   // "order" field.
@@ -26,8 +28,16 @@ class OrdersStruct extends FFFirebaseStruct {
 
   bool hasOrder() => _order != null;
 
+  // "Type" field.
+  String? _type;
+  String get type => _type ?? '';
+  set type(String? val) => _type = val;
+
+  bool hasType() => _type != null;
+
   static OrdersStruct fromMap(Map<String, dynamic> data) => OrdersStruct(
         order: getDataList(data['order']),
+        type: data['Type'] as String?,
       );
 
   static OrdersStruct? maybeFromMap(dynamic data) =>
@@ -35,6 +45,7 @@ class OrdersStruct extends FFFirebaseStruct {
 
   Map<String, dynamic> toMap() => {
         'order': _order,
+        'Type': _type,
       }.withoutNulls;
 
   @override
@@ -43,6 +54,10 @@ class OrdersStruct extends FFFirebaseStruct {
           _order,
           ParamType.DocumentReference,
           isList: true,
+        ),
+        'Type': serializeParam(
+          _type,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -54,6 +69,11 @@ class OrdersStruct extends FFFirebaseStruct {
           true,
           collectionNamePath: ['orders'],
         ),
+        type: deserializeParam(
+          data['Type'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -62,20 +82,24 @@ class OrdersStruct extends FFFirebaseStruct {
   @override
   bool operator ==(Object other) {
     const listEquality = ListEquality();
-    return other is OrdersStruct && listEquality.equals(order, other.order);
+    return other is OrdersStruct &&
+        listEquality.equals(order, other.order) &&
+        type == other.type;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([order]);
+  int get hashCode => const ListEquality().hash([order, type]);
 }
 
 OrdersStruct createOrdersStruct({
+  String? type,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     OrdersStruct(
+      type: type,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
