@@ -25,7 +25,7 @@ Future<void> scanQRcode(BuildContext context) async {
   if (scanResult != '-1' && scanResult.isNotEmpty) {
     // Check if the scanned document ID is present in the 'order' collection
     DocumentSnapshot orderDoc = await FirebaseFirestore.instance
-        .collection('order')
+        .collection('orders')
         .doc(scanResult)
         .get();
 
@@ -59,5 +59,5 @@ Future<void> scanQRcode(BuildContext context) async {
   }
 
   // If scan is canceled, invalid, or order not found, navigate back to 'orderItems-Admin'
-  context.pushNamed('orderItems-Admin');
+  context.pushNamed('orders-Admin');
 }
