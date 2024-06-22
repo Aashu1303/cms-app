@@ -711,6 +711,10 @@ class _CartWidgetState extends State<CartWidget> {
                                               FFAppState().loopStart + 1;
                                           setState(() {});
                                         }
+                                        logFirebaseEvent(
+                                            'Button_firestore_query');
+                                        _model.numberOfOrders =
+                                            await queryOrdersRecordCount();
                                         logFirebaseEvent('Button_backend_call');
 
                                         var ordersRecordReference =
@@ -725,6 +729,8 @@ class _CartWidgetState extends State<CartWidget> {
                                             deliveryDate:
                                                 functions.calculateDeliveryTime(
                                                     getCurrentTimestamp),
+                                            orderNumber:
+                                                (_model.numberOfOrders!) + 1,
                                           ),
                                           ...mapToFirestore(
                                             {
@@ -745,6 +751,8 @@ class _CartWidgetState extends State<CartWidget> {
                                             deliveryDate:
                                                 functions.calculateDeliveryTime(
                                                     getCurrentTimestamp),
+                                            orderNumber:
+                                                (_model.numberOfOrders!) + 1,
                                           ),
                                           ...mapToFirestore(
                                             {

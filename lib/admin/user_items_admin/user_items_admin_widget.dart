@@ -823,9 +823,6 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                               deliveryDate: functions
                                                   .calculateDeliveryTime(
                                                       getCurrentTimestamp),
-                                              orderNumber: columnOrdersRecord
-                                                      .orderNumber +
-                                                  1,
                                             ),
                                             ...mapToFirestore(
                                               {

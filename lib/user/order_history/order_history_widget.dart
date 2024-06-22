@@ -397,8 +397,8 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                                                               ),
                                                               TextSpan(
                                                                 text: listViewOrdersRecord
-                                                                    .reference
-                                                                    .id,
+                                                                    .orderNumber
+                                                                    .toString(),
                                                                 style:
                                                                     TextStyle(
                                                                   color: FlutterFlowTheme.of(

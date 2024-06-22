@@ -15,6 +15,8 @@ class CartModel extends FlutterFlowModel<CartWidget> {
   List<ClothesRecord>? containerPreviousSnapshot;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<ClothesRecord>? queryClothes;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  int? numberOfOrders;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   OrdersRecord? createdDoc;
 

@@ -9,13 +9,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:provider/provider.dart';
-
-// Set your action name, define your arguments and return parameter,
-// and then add the boilerplate code using the green button on the right!
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> scanQRcode(BuildContext context) async {
   // Trigger the QR code scanner
@@ -27,19 +22,42 @@ Future<void> scanQRcode(BuildContext context) async {
   );
 
   // Check the scan result
-  if (scanResult != '-1') {
-    // QR code scanned successfully, navigate to the 'userItems-Admin' page
-    context.pushNamed(
-      'userItems-Admin',
-      queryParameters: {
-        'orderID': serializeParam(
-          scanResult,
-          ParamType.String,
+  if (scanResult != '-1' && scanResult.isNotEmpty) {
+    // Check if the scanned document ID is present in the 'order' collection
+    DocumentSnapshot orderDoc = await FirebaseFirestore.instance
+        .collection('order')
+        .doc(scanResult)
+        .get();
+
+    if (orderDoc.exists) {
+      // QR code scanned successfully and found in the collection, navigate to the 'userItems-Admin' page with the scan result
+      context.pushNamed(
+        'userItems-Admin',
+        queryParameters: {
+          'orderID': serializeParam(
+            scanResult,
+            ParamType.DocumentReference,
+          ),
+        },
+      );
+      return; // Exit the function if navigation is successful
+    } else {
+      // Scanned document ID not found in the collection
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Order not found.'),
         ),
-      },
-    );
+      );
+    }
   } else {
-    // QR code scan canceled, navigate back to the previous page
-    Navigator.pop(context);
+    // Scan canceled or result is empty
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('QR code scan canceled or invalid result.'),
+      ),
+    );
   }
+
+  // If scan is canceled, invalid, or order not found, navigate back to 'orderItems-Admin'
+  context.pushNamed('orderItems-Admin');
 }

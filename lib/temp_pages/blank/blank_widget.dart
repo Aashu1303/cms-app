@@ -26,6 +26,9 @@ class _BlankWidgetState extends State<BlankWidget> {
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'blank'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (RootPageContext.isInactiveRootPage(context)) {
+        return;
+      }
       logFirebaseEvent('BLANK_PAGE_blank_ON_INIT_STATE');
       if (FFAppState().role != 'user') {
         logFirebaseEvent('blank_navigate_to');
