@@ -7,7 +7,6 @@ class OrdersAdminModel extends FlutterFlowModel<OrdersAdminWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  var qrScan = '';
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>

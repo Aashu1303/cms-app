@@ -53,8 +53,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 
-	<key>NSCameraUsageDescription</key>
-    <string>In order to scan for barcodes and QR codes, this app requires permission to access the camera.</string>
+
 	<key>PermissionGroupNotification</key>
     <string>Would you like us to send you Notifications</string>
     <key>UIBackgroundModes</key>

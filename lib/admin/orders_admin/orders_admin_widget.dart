@@ -2,10 +2,10 @@ import '/backend/backend.dart';
 import '/components/nav_bar2/nav_bar2_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
 import 'orders_admin_model.dart';
 export 'orders_admin_model.dart';
@@ -91,27 +91,10 @@ class _OrdersAdminWidgetState extends State<OrdersAdminWidget>
               child: FloatingActionButton(
                 onPressed: () async {
                   logFirebaseEvent('ORDERS_ADMIN_FloatingActionButton_s28eg0');
-                  logFirebaseEvent('FloatingActionButton_scan_barcode_q_r_co');
-                  _model.qrScan = await FlutterBarcodeScanner.scanBarcode(
-                    '#C62828', // scanning line color
-                    'Cancel', // cancel button text
-                    true, // whether to show the flash icon
-                    ScanMode.QR,
+                  logFirebaseEvent('FloatingActionButton_custom_action');
+                  await actions.scanQRcode(
+                    context,
                   );
-
-                  logFirebaseEvent('FloatingActionButton_navigate_to');
-
-                  context.goNamed(
-                    'userItems-Admin',
-                    queryParameters: {
-                      'orderID': serializeParam(
-                        functions.newCustomFunction(_model.qrScan),
-                        ParamType.DocumentReference,
-                      ),
-                    }.withoutNulls,
-                  );
-
-                  setState(() {});
                 },
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 elevation: 8.0,

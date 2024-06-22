@@ -40,22 +40,40 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('USER_ITEMS_ADMIN_userItems-Admin_ON_INIT');
-      logFirebaseEvent('userItems-Admin_firestore_query');
-      _model.queryPrices = await queryClothesRecordOnce(
-        parent: FFAppState().uid,
-      );
-      logFirebaseEvent('userItems-Admin_update_app_state');
-      FFAppState().loopStart = 0;
-      FFAppState().loopEnd = _model.queryPrices!.length;
-      FFAppState().totalCost = 0.0;
-      setState(() {});
-      while (FFAppState().loopStart < FFAppState().loopEnd) {
+      if (widget.orderID != null) {
+        logFirebaseEvent('userItems-Admin_firestore_query');
+        _model.queryPrices = await queryClothesRecordOnce(
+          parent: FFAppState().uid,
+        );
         logFirebaseEvent('userItems-Admin_update_app_state');
-        FFAppState().totalCost = FFAppState().totalCost +
-            _model.queryPrices![FFAppState().loopStart].price.toDouble();
+        FFAppState().loopStart = 0;
+        FFAppState().loopEnd = _model.queryPrices!.length;
+        FFAppState().totalCost = 0.0;
         setState(() {});
-        logFirebaseEvent('userItems-Admin_update_app_state');
-        FFAppState().loopStart = FFAppState().loopStart + 1;
+        while (FFAppState().loopStart < FFAppState().loopEnd) {
+          logFirebaseEvent('userItems-Admin_update_app_state');
+          FFAppState().totalCost = FFAppState().totalCost +
+              _model.queryPrices![FFAppState().loopStart].price.toDouble();
+          setState(() {});
+          logFirebaseEvent('userItems-Admin_update_app_state');
+          FFAppState().loopStart = FFAppState().loopStart + 1;
+        }
+      } else {
+        logFirebaseEvent('userItems-Admin_navigate_back');
+        context.safePop();
+        logFirebaseEvent('userItems-Admin_show_snack_bar');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Failed! Please try to re-scan.',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
+            ),
+            duration: const Duration(milliseconds: 1000),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
+        );
       }
     });
 
