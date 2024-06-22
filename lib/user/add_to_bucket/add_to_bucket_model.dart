@@ -17,6 +17,8 @@ class AddToBucketModel extends FlutterFlowModel<AddToBucketWidget> {
   FormFieldController<String>? dropDownValueController2;
   // State field(s) for CountController widget.
   int? countControllerValue;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  ClothesRecord? checkEntry;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   ClothesRecord? addClothes;
   // Model for NavBar1 component.

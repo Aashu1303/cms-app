@@ -69,6 +69,9 @@ class _ResendEmailWidgetState extends State<ResendEmailWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
+                  logFirebaseEvent('RESEND_EMAIL_cancel_outlined_ICN_ON_TAP');
+                  logFirebaseEvent('IconButton_navigate_to');
+
                   context.pushNamed('login');
                 },
               ),
@@ -88,6 +91,8 @@ class _ResendEmailWidgetState extends State<ResendEmailWidget> {
           ),
           FFButtonWidget(
             onPressed: () async {
+              logFirebaseEvent('RESEND_EMAIL_RESEND_VERIFICATION_EMAIL_B');
+              logFirebaseEvent('Button_auth');
               await authManager.sendEmailVerification();
             },
             text: 'Resend Verification Email',

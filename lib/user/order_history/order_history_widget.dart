@@ -26,6 +26,8 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
     super.initState();
     _model = createModel(context, () => OrderHistoryModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'orderHistory'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -46,7 +48,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70.0),
           child: AppBar(
@@ -64,6 +66,9 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
+                  logFirebaseEvent('ORDER_HISTORY_arrow_back_rounded_ICN_ON_');
+                  logFirebaseEvent('IconButton_navigate_to');
+
                   context.pushNamed('profile');
                 },
               ),
@@ -81,8 +86,9 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                       style:
                           FlutterFlowTheme.of(context).headlineLarge.override(
                                 fontFamily: 'Outfit',
-                                fontSize: 25.0,
+                                fontSize: 32.0,
                                 letterSpacing: 0.0,
+                                fontWeight: FontWeight.w500,
                               ),
                     ),
                   ),
@@ -246,7 +252,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                                       'uid',
                                       isEqualTo: FFAppState().uid,
                                     )
-                                    .orderBy('deliveryDate', descending: true),
+                                    .orderBy('createdAt', descending: true),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -291,6 +297,10 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget> {
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
+                                          logFirebaseEvent(
+                                              'ORDER_HISTORY_PAGE_listContainer_ON_TAP');
+                                          logFirebaseEvent(
+                                              'listContainer_bottom_sheet');
                                           await showModalBottomSheet(
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,

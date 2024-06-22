@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'serialization_util.dart';
-import '../../flutter_flow/flutter_flow_theme.dart';
+import '../backend.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -73,10 +73,10 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   @override
   Widget build(BuildContext context) => _loading
       ? Container(
-          color: FlutterFlowTheme.of(context).primaryText,
+          color: Colors.transparent,
           child: Image.asset(
-            'assets/images/Black___White_Minimalist_Business_Logo-removebg-preview.png',
-            fit: BoxFit.contain,
+            'assets/images/Green_Art_Deco_Ornament_IOS_Home_Screen.png',
+            fit: BoxFit.cover,
           ),
         )
       : widget.child;

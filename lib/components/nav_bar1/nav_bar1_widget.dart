@@ -6,7 +6,12 @@ import 'nav_bar1_model.dart';
 export 'nav_bar1_model.dart';
 
 class NavBar1Widget extends StatefulWidget {
-  const NavBar1Widget({super.key});
+  const NavBar1Widget({
+    super.key,
+    int? curr,
+  }) : curr = curr ?? 0;
+
+  final int curr;
 
   @override
   State<NavBar1Widget> createState() => _NavBar1WidgetState();
@@ -41,8 +46,8 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
     return Container(
       width: double.infinity,
       height: 90.0,
-      decoration: const BoxDecoration(
-        color: Color(0x00EEEEEE),
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Stack(
         children: [
@@ -88,93 +93,117 @@ class _NavBar1WidgetState extends State<NavBar1Widget> {
               ),
             ],
           ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30.0,
-                borderWidth: 1.0,
-                buttonSize: 50.0,
-                icon: const Icon(
-                  Icons.home_rounded,
-                  color: Color(0xFF9299A1),
-                  size: 24.0,
-                ),
-                onPressed: () async {
-                  context.pushNamed('services');
-                },
-              ),
-              FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30.0,
-                borderWidth: 1.0,
-                buttonSize: 50.0,
-                icon: const Icon(
-                  Icons.shopping_basket_rounded,
-                  color: Color(0xFF9299A1),
-                  size: 24.0,
-                ),
-                onPressed: () async {
-                  context.pushNamed('Bucket');
-                },
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                    child: FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 25.0,
-                      borderWidth: 1.0,
-                      buttonSize: 60.0,
-                      fillColor: FlutterFlowTheme.of(context).primary,
-                      icon: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () async {
-                        context.pushNamed('AddToBucket');
-                      },
-                    ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 50.0,
+                  icon: const Icon(
+                    Icons.home_rounded,
+                    color: Color(0xFF9299A1),
+                    size: 24.0,
                   ),
-                ],
-              ),
-              FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30.0,
-                borderWidth: 1.0,
-                buttonSize: 50.0,
-                icon: const Icon(
-                  Icons.shopping_cart,
-                  color: Color(0xFF9299A1),
-                  size: 24.0,
+                  onPressed: () async {
+                    logFirebaseEvent('NAV_BAR1_COMP_home_rounded_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_navigate_to');
+
+                    context.pushNamed(
+                      'services',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
+                  },
                 ),
-                onPressed: () async {
-                  context.pushNamed('Cart');
-                },
-              ),
-              FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30.0,
-                borderWidth: 1.0,
-                buttonSize: 50.0,
-                icon: const Icon(
-                  Icons.person,
-                  color: Color(0xFF9299A1),
-                  size: 24.0,
+                FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 50.0,
+                  icon: Icon(
+                    Icons.shopping_basket_rounded,
+                    color: widget.curr == 1
+                        ? FlutterFlowTheme.of(context).primary
+                        : const Color(0xFF9299A1),
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    logFirebaseEvent(
+                        'NAV_BAR1_shopping_basket_rounded_ICN_ON_');
+                    logFirebaseEvent('IconButton_navigate_to');
+
+                    context.pushNamed(
+                      'AddToBucket',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
+                  },
                 ),
-                onPressed: () async {
-                  context.pushNamed('profile');
-                },
-              ),
-            ],
+                FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 50.0,
+                  icon: Icon(
+                    Icons.add_shopping_cart,
+                    color: widget.curr == 2
+                        ? FlutterFlowTheme.of(context).primary
+                        : const Color(0xFF9299A1),
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    logFirebaseEvent('NAV_BAR1_add_shopping_cart_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_navigate_to');
+
+                    context.pushNamed('Bucket');
+                  },
+                ),
+                FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 50.0,
+                  icon: Icon(
+                    Icons.person,
+                    color: widget.curr == 3
+                        ? FlutterFlowTheme.of(context).primary
+                        : const Color(0xFF9299A1),
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    logFirebaseEvent('NAV_BAR1_COMP_person_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_navigate_to');
+
+                    context.pushNamed(
+                      'profile',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -106,6 +106,9 @@ class _NavBar2WidgetState extends State<NavBar2Widget> {
                     size: 24.0,
                   ),
                   onPressed: () async {
+                    logFirebaseEvent('NAV_BAR2_receipt_long_sharp_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_navigate_to');
+
                     context.pushNamed('orders-Admin');
                   },
                 ),
@@ -121,6 +124,9 @@ class _NavBar2WidgetState extends State<NavBar2Widget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
+                  logFirebaseEvent('NAV_BAR2_COMP_person_ICN_ON_TAP');
+                  logFirebaseEvent('IconButton_navigate_to');
+
                   context.pushNamed('profileAdmin');
                 },
               ),

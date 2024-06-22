@@ -10,7 +10,6 @@ import '/auth/base_auth_user_provider.dart';
 import '/backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
 import '/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -353,10 +352,10 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: Colors.transparent,
                   child: Image.asset(
-                    'assets/images/Black___White_Minimalist_Business_Logo-removebg-preview.png',
-                    fit: BoxFit.contain,
+                    'assets/images/Green_Art_Deco_Ornament_IOS_Home_Screen.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : PushNotificationsHandler(child: page);

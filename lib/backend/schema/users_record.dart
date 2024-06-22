@@ -60,6 +60,11 @@ class UsersRecord extends FirestoreRecord {
   int get totalPrice => _totalPrice ?? 0;
   bool hasTotalPrice() => _totalPrice != null;
 
+  // "totalOrders" field.
+  int? _totalOrders;
+  int get totalOrders => _totalOrders ?? 0;
+  bool hasTotalOrders() => _totalOrders != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -70,6 +75,7 @@ class UsersRecord extends FirestoreRecord {
     _roomNo = snapshotData['roomNo'] as String?;
     _uid = snapshotData['uid'] as String?;
     _totalPrice = castToType<int>(snapshotData['totalPrice']);
+    _totalOrders = castToType<int>(snapshotData['totalOrders']);
   }
 
   static CollectionReference get collection =>
@@ -115,6 +121,7 @@ Map<String, dynamic> createUsersRecordData({
   String? roomNo,
   String? uid,
   int? totalPrice,
+  int? totalOrders,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -127,6 +134,7 @@ Map<String, dynamic> createUsersRecordData({
       'roomNo': roomNo,
       'uid': uid,
       'totalPrice': totalPrice,
+      'totalOrders': totalOrders,
     }.withoutNulls,
   );
 
@@ -146,7 +154,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.role == e2?.role &&
         e1?.roomNo == e2?.roomNo &&
         e1?.uid == e2?.uid &&
-        e1?.totalPrice == e2?.totalPrice;
+        e1?.totalPrice == e2?.totalPrice &&
+        e1?.totalOrders == e2?.totalOrders;
   }
 
   @override
@@ -159,7 +168,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.role,
         e?.roomNo,
         e?.uid,
-        e?.totalPrice
+        e?.totalPrice,
+        e?.totalOrders
       ]);
 
   @override

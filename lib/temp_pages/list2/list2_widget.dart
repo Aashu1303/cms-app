@@ -24,6 +24,7 @@ class _List2WidgetState extends State<List2Widget>
     super.initState();
     _model = createModel(context, () => List2Model());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'List2'});
     _model.tabBarController = TabController(
       vsync: this,
       length: 1,
@@ -62,6 +63,8 @@ class _List2WidgetState extends State<List2Widget>
               size: 30.0,
             ),
             onPressed: () async {
+              logFirebaseEvent('LIST2_PAGE_arrow_back_rounded_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_navigate_back');
               context.safePop();
             },
           ),
@@ -171,6 +174,9 @@ class _List2WidgetState extends State<List2Widget>
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'LIST2_PAGE_Container_8z85gmmw_ON_TAP');
+                                    logFirebaseEvent('Container_navigate_back');
                                     context.safePop();
                                   },
                                   child: Container(

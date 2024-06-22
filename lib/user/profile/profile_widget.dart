@@ -25,6 +25,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     super.initState();
     _model = createModel(context, () => ProfileModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'profile'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -41,7 +42,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: const Color(0xFFF1F4F8),
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         top: true,
         child: Column(
@@ -50,8 +51,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             Container(
               width: MediaQuery.sizeOf(context).width * 1.0,
               height: 160.0,
-              decoration: const BoxDecoration(
-                color: Color(0xFF4B39EF),
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).primary,
               ),
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20.0, 40.0, 20.0, 0.0),
@@ -146,10 +147,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 22.0, 16.0, 0.0),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 0.0,
@@ -160,7 +162,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         width: double.infinity,
                         height: 60.0,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: const [
                             BoxShadow(
                               blurRadius: 3.0,
@@ -173,7 +176,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           ],
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             width: 0.0,
                           ),
                         ),
@@ -190,7 +194,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     .bodyLarge
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF14181B),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
@@ -211,6 +216,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        logFirebaseEvent(
+                            'PROFILE_PAGE_Container_h2j4atk6_ON_TAP');
+                        logFirebaseEvent('Container_navigate_to');
+
                         context.pushNamed('orderHistory');
                       },
                       child: Material(
@@ -223,7 +232,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           width: double.infinity,
                           height: 60.0,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             boxShadow: const [
                               BoxShadow(
                                 blurRadius: 3.0,
@@ -236,7 +246,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ],
                             borderRadius: BorderRadius.circular(8.0),
                             border: Border.all(
-                              color: Colors.white,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                               width: 0.0,
                             ),
                           ),
@@ -253,7 +264,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       .bodyLarge
                                       .override(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: const Color(0xFF14181B),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         fontSize: 16.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -279,7 +291,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         width: double.infinity,
                         height: 60.0,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: const [
                             BoxShadow(
                               blurRadius: 3.0,
@@ -292,7 +305,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           ],
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             width: 0.0,
                           ),
                         ),
@@ -309,7 +323,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     .bodyLarge
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF14181B),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
@@ -334,7 +349,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         width: double.infinity,
                         height: 60.0,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: const [
                             BoxShadow(
                               blurRadius: 3.0,
@@ -347,7 +363,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           ],
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             width: 0.0,
                           ),
                         ),
@@ -364,7 +381,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     .bodyLarge
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF14181B),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
@@ -381,6 +399,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 40.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        logFirebaseEvent('PROFILE_PAGE_LOG_OUT_BTN_ON_TAP');
+                        logFirebaseEvent('Button_auth');
                         GoRouter.of(context).prepareAuthEvent();
                         await authManager.signOut();
                         GoRouter.of(context).clearRedirectLocation();
@@ -389,27 +409,29 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       },
                       text: 'Log Out',
                       options: FFButtonOptions(
-                        width: 110.0,
-                        height: 50.0,
+                        width: 136.0,
+                        height: 58.0,
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Colors.white,
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodyLarge.override(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF14181B),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                        elevation: 3.0,
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                          width: 1.0,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        textStyle: FlutterFlowTheme.of(context)
+                            .bodyLarge
+                            .override(
+                              fontFamily: 'Plus Jakarta Sans',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 22.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.normal,
+                            ),
+                        elevation: 10.0,
+                        borderSide: BorderSide(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          width: 5.0,
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                     ),
                   ),
@@ -419,7 +441,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             wrapWithModel(
               model: _model.navBar1Model,
               updateCallback: () => setState(() {}),
-              child: const NavBar1Widget(),
+              child: const NavBar1Widget(
+                curr: 3,
+              ),
             ),
           ],
         ),

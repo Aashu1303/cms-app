@@ -121,3 +121,8 @@ List<OrdersStruct> getOrdersByDate(
 
   return [todayOrders, yesterdayOrders, previousOrders];
 }
+
+DocumentReference? getClothesReference(DocumentReference user) {
+  // Write a function to retrieve clothes reference from user reference
+  return user.collection('clothes').doc();
+}

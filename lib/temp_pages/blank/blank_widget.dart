@@ -23,14 +23,22 @@ class _BlankWidgetState extends State<BlankWidget> {
     super.initState();
     _model = createModel(context, () => BlankModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'blank'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('BLANK_PAGE_blank_ON_INIT_STATE');
       if (FFAppState().role != 'user') {
+        logFirebaseEvent('blank_navigate_to');
+
         context.pushNamed('orders-Admin');
       } else {
         if (FFAppState().role == '') {
+          logFirebaseEvent('blank_navigate_to');
+
           context.pushNamed('login');
         } else {
+          logFirebaseEvent('blank_navigate_to');
+
           context.pushNamed('AddToBucket');
         }
       }

@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -34,19 +35,26 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
     super.initState();
     _model = createModel(context, () => UserItemsAdminModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'userItems-Admin'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('USER_ITEMS_ADMIN_userItems-Admin_ON_INIT');
+      logFirebaseEvent('userItems-Admin_firestore_query');
       _model.queryPrices = await queryClothesRecordOnce(
         parent: FFAppState().uid,
       );
+      logFirebaseEvent('userItems-Admin_update_app_state');
       FFAppState().loopStart = 0;
       FFAppState().loopEnd = _model.queryPrices!.length;
       FFAppState().totalCost = 0.0;
       setState(() {});
       while (FFAppState().loopStart < FFAppState().loopEnd) {
+        logFirebaseEvent('userItems-Admin_update_app_state');
         FFAppState().totalCost = FFAppState().totalCost +
             _model.queryPrices![FFAppState().loopStart].price.toDouble();
         setState(() {});
+        logFirebaseEvent('userItems-Admin_update_app_state');
         FFAppState().loopStart = FFAppState().loopStart + 1;
       }
     });
@@ -81,6 +89,8 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
             size: 25.0,
           ),
           onPressed: () async {
+            logFirebaseEvent('USER_ITEMS_ADMIN_arrow_back_rounded_ICN_');
+            logFirebaseEvent('IconButton_navigate_back');
             context.pop();
           },
         ),
@@ -488,6 +498,10 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'USER_ITEMS_ADMIN_RichText_b3linj6y_ON_TA');
+                                                    logFirebaseEvent(
+                                                        'RichText_call_number');
                                                     unawaited(
                                                       () async {
                                                         await launchUrl(Uri(
@@ -522,9 +536,10 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                                           text:
                                                               columnUsersRecord
                                                                   .phoneNumber,
-                                                          style: const TextStyle(
-                                                            color: Color(
-                                                                0xFF260FE7),
+                                                          style: TextStyle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor1,
                                                             decoration:
                                                                 TextDecoration
                                                                     .underline,
@@ -723,6 +738,11 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                           0.0, 0.0, 16.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          logFirebaseEvent(
+                                              'USER_ITEMS_ADMIN_PAGE_DECLINE_BTN_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+
                                           await widget.orderID!.update({
                                             ...createOrdersRecordData(
                                               status: 'Rejected',
@@ -773,6 +793,11 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                           16.0, 0.0, 0.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          logFirebaseEvent(
+                                              'USER_ITEMS_ADMIN_PAGE_ACCEPT_BTN_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+
                                           await widget.orderID!.update({
                                             ...createOrdersRecordData(
                                               status: 'Accepted',
@@ -780,11 +805,25 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                               deliveryDate: functions
                                                   .calculateDeliveryTime(
                                                       getCurrentTimestamp),
+                                              orderNumber: columnOrdersRecord
+                                                      .orderNumber +
+                                                  1,
                                             ),
                                             ...mapToFirestore(
                                               {
                                                 'updatedAt': FieldValue
                                                     .serverTimestamp(),
+                                              },
+                                            ),
+                                          });
+                                          logFirebaseEvent(
+                                              'Button_backend_call');
+
+                                          await currentUserReference!.update({
+                                            ...mapToFirestore(
+                                              {
+                                                'totalOrders':
+                                                    FieldValue.increment(1),
                                               },
                                             ),
                                           });
@@ -861,6 +900,10 @@ class _UserItemsAdminWidgetState extends State<UserItemsAdminWidget> {
                                   0.0, 20.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'USER_ITEMS_ADMIN_PAYMENT_DONE_BTN_ON_TAP');
+                                  logFirebaseEvent('Button_backend_call');
+
                                   await columnOrdersRecord.reference
                                       .update(createOrdersRecordData(
                                     service: 'Completed',

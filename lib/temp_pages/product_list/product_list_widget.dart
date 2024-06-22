@@ -23,6 +23,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
     super.initState();
     _model = createModel(context, () => ProductListModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'ProductList'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

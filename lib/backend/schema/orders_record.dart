@@ -60,6 +60,11 @@ class OrdersRecord extends FirestoreRecord {
   DateTime? get deliveryDate => _deliveryDate;
   bool hasDeliveryDate() => _deliveryDate != null;
 
+  // "orderNumber" field.
+  int? _orderNumber;
+  int get orderNumber => _orderNumber ?? 0;
+  bool hasOrderNumber() => _orderNumber != null;
+
   void _initializeFields() {
     _orderID = snapshotData['orderID'] as String?;
     _uid = snapshotData['uid'] as DocumentReference?;
@@ -73,6 +78,7 @@ class OrdersRecord extends FirestoreRecord {
     _totalAmount = castToType<double>(snapshotData['totalAmount']);
     _service = snapshotData['service'] as String?;
     _deliveryDate = snapshotData['deliveryDate'] as DateTime?;
+    _orderNumber = castToType<int>(snapshotData['orderNumber']);
   }
 
   static CollectionReference get collection =>
@@ -117,6 +123,7 @@ Map<String, dynamic> createOrdersRecordData({
   double? totalAmount,
   String? service,
   DateTime? deliveryDate,
+  int? orderNumber,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -128,6 +135,7 @@ Map<String, dynamic> createOrdersRecordData({
       'totalAmount': totalAmount,
       'service': service,
       'deliveryDate': deliveryDate,
+      'orderNumber': orderNumber,
     }.withoutNulls,
   );
 
@@ -148,7 +156,8 @@ class OrdersRecordDocumentEquality implements Equality<OrdersRecord> {
         listEquality.equals(e1?.items, e2?.items) &&
         e1?.totalAmount == e2?.totalAmount &&
         e1?.service == e2?.service &&
-        e1?.deliveryDate == e2?.deliveryDate;
+        e1?.deliveryDate == e2?.deliveryDate &&
+        e1?.orderNumber == e2?.orderNumber;
   }
 
   @override
@@ -161,7 +170,8 @@ class OrdersRecordDocumentEquality implements Equality<OrdersRecord> {
         e?.items,
         e?.totalAmount,
         e?.service,
-        e?.deliveryDate
+        e?.deliveryDate,
+        e?.orderNumber
       ]);
 
   @override

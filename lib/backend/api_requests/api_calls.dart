@@ -44,6 +44,7 @@ class FetchBucketCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: true,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -102,6 +103,7 @@ class AddToBucketCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -132,6 +134,7 @@ class LoginCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: true,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -172,6 +175,7 @@ class SignUpCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: true,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -202,6 +206,7 @@ class AdminLoginCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -228,6 +233,7 @@ class TempCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }

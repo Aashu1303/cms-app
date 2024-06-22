@@ -56,88 +56,96 @@ class _CounterControllerWidgetState extends State<CounterControllerWidget> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Expanded(
-          child: Container(
-            width: 160.0,
-            height: 50.0,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.circular(8.0),
-              shape: BoxShape.rectangle,
-              border: Border.all(
-                color: FlutterFlowTheme.of(context).alternate,
-                width: 2.0,
-              ),
+        Container(
+          width: 150.0,
+          height: 70.0,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            borderRadius: BorderRadius.circular(8.0),
+            shape: BoxShape.rectangle,
+            border: Border.all(
+              color: FlutterFlowTheme.of(context).alternate,
+              width: 2.0,
             ),
-            child: FlutterFlowCountController(
-              decrementIconBuilder: (enabled) => FaIcon(
-                FontAwesomeIcons.minus,
-                color: enabled
-                    ? FlutterFlowTheme.of(context).secondaryText
-                    : FlutterFlowTheme.of(context).alternate,
-                size: 15.0,
-              ),
-              incrementIconBuilder: (enabled) => FaIcon(
-                FontAwesomeIcons.plus,
-                color: enabled
-                    ? FlutterFlowTheme.of(context).primary
-                    : FlutterFlowTheme.of(context).alternate,
-                size: 18.0,
-              ),
-              countBuilder: (count) => Text(
-                count.toString(),
-                style: FlutterFlowTheme.of(context).titleLarge.override(
-                      fontFamily: 'Outfit',
-                      letterSpacing: 0.0,
-                    ),
-              ),
-              count: _model.countControllerValue ??= widget.quantity!,
-              updateCount: (count) async {
-                setState(() => _model.countControllerValue = count);
-                if (_model.countControllerValue != 0) {
-                  await widget.clothID!.update(createClothesRecordData(
-                    quantity: _model.countControllerValue,
-                    price: (_model.countControllerValue!) * (widget.price!),
-                  ));
-                } else {
-                  var confirmDialogResponse = await showDialog<bool>(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: const Text('Remove Item'),
-                            content: const Text('Do you want to remove this item ?'),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext, false),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext, true),
-                                child: const Text('Confirm'),
-                              ),
-                            ],
-                          );
-                        },
-                      ) ??
-                      false;
-                  if (confirmDialogResponse) {
-                    await widget.clothID!.delete();
-                  } else {
-                    await widget.clothID!.update(createClothesRecordData(
-                      quantity: 1,
-                    ));
+          ),
+          child: FlutterFlowCountController(
+            decrementIconBuilder: (enabled) => FaIcon(
+              FontAwesomeIcons.minus,
+              color: enabled
+                  ? FlutterFlowTheme.of(context).secondaryText
+                  : FlutterFlowTheme.of(context).alternate,
+              size: 30.0,
+            ),
+            incrementIconBuilder: (enabled) => FaIcon(
+              FontAwesomeIcons.plus,
+              color: enabled
+                  ? FlutterFlowTheme.of(context).primary
+                  : FlutterFlowTheme.of(context).alternate,
+              size: 30.0,
+            ),
+            countBuilder: (count) => Text(
+              count.toString(),
+              style: FlutterFlowTheme.of(context).titleLarge.override(
+                    fontFamily: 'Outfit',
+                    fontSize: 30.0,
+                    letterSpacing: 0.0,
+                  ),
+            ),
+            count: _model.countControllerValue ??= widget.quantity!,
+            updateCount: (count) async {
+              setState(() => _model.countControllerValue = count);
+              logFirebaseEvent('COUNTER_CONTROLLER_CountController_48ps2');
+              if (_model.countControllerValue != 0) {
+                logFirebaseEvent('CountController_backend_call');
 
-                    context.pushNamed('Bucket');
-                  }
+                await widget.clothID!.update(createClothesRecordData(
+                  quantity: _model.countControllerValue,
+                  price: (_model.countControllerValue!) * (widget.price!),
+                ));
+              } else {
+                logFirebaseEvent('CountController_alert_dialog');
+                var confirmDialogResponse = await showDialog<bool>(
+                      context: context,
+                      builder: (alertDialogContext) {
+                        return AlertDialog(
+                          title: const Text('Remove Item'),
+                          content: const Text('Do you want to remove this item ?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext, false),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(alertDialogContext, true),
+                              child: const Text('Confirm'),
+                            ),
+                          ],
+                        );
+                      },
+                    ) ??
+                    false;
+                if (confirmDialogResponse) {
+                  logFirebaseEvent('CountController_backend_call');
+                  await widget.clothID!.delete();
+                } else {
+                  logFirebaseEvent('CountController_backend_call');
+
+                  await widget.clothID!.update(createClothesRecordData(
+                    quantity: 1,
+                  ));
+                  logFirebaseEvent('CountController_navigate_to');
+
+                  context.pushNamed('Bucket');
                 }
-              },
-              stepSize: 1,
-              minimum: 0,
-              contentPadding: const EdgeInsets.all(6.0),
-            ),
+              }
+            },
+            stepSize: 1,
+            minimum: 0,
+            contentPadding: const EdgeInsets.all(10.0),
           ),
         ),
       ],
